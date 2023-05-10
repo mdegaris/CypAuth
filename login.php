@@ -84,16 +84,16 @@ if (isset($_POST['auth_login'])) {
         </div>
         <form class="login-form" method="post">
           <div class="field-container">
-            <input class="login-field" type="text" name="username" placeholder="username" />
-            <input class="login-field" type="password" name="password" placeholder="password" />
+            <input class="login-field" type="text" name="username" placeholder="Username" />
+            <input class="login-field" type="password" name="password" placeholder="Password" />
           </div>
           <div class="button-container">
-            <button class="login-button">login</button>
+            <button class="login-button">LOGIN</button>
           </div>
           <input type="hidden" name="auth_login" />
         </form>
         <?php
-        if ($LOGIN_ATTEMPT and $LOGIN_SUCCESS === false) {
+        if ($LOGIN_ATTEMPT === true and $LOGIN_SUCCESS === false) {
         ?>
           <div class="feedback-container">Invalid username/password</div>
         <?php
