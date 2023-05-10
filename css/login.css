@@ -1,0 +1,147 @@
+:root {
+  --clr-primary-1: rgb(0, 119, 184);
+  --clr-primary-2: rgb(254, 254, 254);
+  --clr-secondary-1: rgb(237, 237, 237);
+  --clr-secondary-2: rgb(210, 210, 210);
+  --clr-hightlight-1: rgb(244, 244, 244);
+  --clr-hightlight-2: rgb(153, 153, 153);
+  --clr-hightlight-3: rgb(0, 154, 200);
+  --clr-error: rgb(239, 16, 16);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+html {
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  line-height: 1.4;
+  font-weight: normal;
+  font-style: normal;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.7rem;
+  height: 100%;
+}
+
+main {
+  min-height: 100%;
+  background-color: var(--clr-primary-1);
+  padding: 2.5rem;
+}
+
+input {
+  border: solid 1px var(--clr-secondary-2);
+  background-color: var(--clr-secondary-1);
+  color: 111111;
+  padding: 0.8em;
+  font-size: 1.8rem;
+}
+
+input:hover {
+  background-color: var(--clr-hightlight-1);
+}
+
+input:focus {
+  border: solid 1px var(--clr-hightlight-2);
+  background-color: var(--clr-hightlight-1);
+}
+
+button {
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--clr-primary-2);
+  padding: 0.5rem;
+  height: 4rem;
+  background-color: var(--clr-primary-1);
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: var(--clr-hightlight-3);
+}
+
+button:focus {
+  background-color: var(--clr-hightlight-3);
+}
+
+button:active {
+  cursor: pointer;
+  border: solid 1px var(--clr-primary-1);
+  background-color: var(--clr-hightlight-3);
+}
+
+.login-button {
+  margin: 2rem 0;
+  min-width: 30rem;
+}
+
+.login-field {
+  min-width: 30rem;
+  margin: 2rem 0;
+}
+
+.login-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10rem;
+  background-color: var(--clr-primary-2);
+  min-width: 40rem;
+  width: 50rem;
+  box-shadow: -2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+  padding: 1.5rem;
+  margin: 0 auto;
+  width: max-content;
+}
+
+.field-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-title {
+  padding: 0.5rem;
+  margin: 1rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.login-form {
+  padding: 0, 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title-logo {
+  height: 3rem;
+}
+
+.feedback-container {
+  margin: 0 auto;
+  width: fit-content;
+  color: var(--clr-error);
+}
