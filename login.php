@@ -79,8 +79,8 @@ if (isset($_POST['auth_login'])) {
     <div class="login-container">
       <div class="form-container">
         <div class="title-container">
-          <div class="login-title">Cyprotex SSO</div>
           <img class="title-logo" src="images/logo-brand.svg" />
+          <div class="login-title">Cyprotex SSO</div>
         </div>
         <form class="login-form" method="post">
           <div class="field-container">

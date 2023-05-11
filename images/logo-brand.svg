@@ -1,1 +1,6 @@
-<svg id="bcaee23c-5d6b-46ff-b555-c50a3399e80b" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54.52 54.51"><title>logo-brand</title><path d="M45.91,24.17A21.7,21.7,0,1,1,39.55,8.85a21.64,21.64,0,0,1,6.36,15.32" transform="translate(-2.5 -2.5)"/><path d="M57,47.24a9.77,9.77,0,1,1-2.86-6.91A9.74,9.74,0,0,1,57,47.24" transform="translate(-2.5 -2.5)"/></svg>
+<svg fill="rgb(35, 35, 183)" id="bcaee23c-5d6b-46ff-b555-c50a3399e80b" data-name="Ebene 1"
+  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54.52 54.51">
+  <title>logo-brand</title>
+  <path d="M45.91,24.17A21.7,21.7,0,1,1,39.55,8.85a21.64,21.64,0,0,1,6.36,15.32" transform="translate(-2.5 -2.5)" />
+  <path d="M57,47.24a9.77,9.77,0,1,1-2.86-6.91A9.74,9.74,0,0,1,57,47.24" transform="translate(-2.5 -2.5)" />
+</svg>
