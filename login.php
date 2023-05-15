@@ -3,7 +3,7 @@
 $LOGIN_ATTEMPT = false;
 $LOGIN_SUCCESS = false;
 
-$COOKIE_LIFE = time() + 60 * 60 * 24 * 365;
+$COOKIE_LIFE = time() + 60 * 60 * 24 * 365 * 2;  // Two years
 $DOMAIN = 'cyprotex.com';
 
 function build_auth_cookie($login_name, $login_location)
