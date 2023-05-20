@@ -77,19 +77,19 @@ if (isset($_POST['auth_login'])) {
 
 <body>
   <main>
-    <div class="login-container">
+    <div class="main-container">
       <div class="form-container">
         <div class="title-container">
           <img class="title-logo" src="images/logo-brand.svg" />
-          <div class="login-title">Cyprotex SSO</div>
+          <div class="form-title">Cyprotex SSO</div>
         </div>
         <form class="login-form" method="post">
           <div class="field-container">
-            <input class="login-field" type="text" name="username" placeholder="Username" />
-            <input class="login-field" type="password" name="password" placeholder="Password" />
+            <input class="input-field" type="text" name="username" placeholder="Username" />
+            <input class="input-field" type="password" name="password" placeholder="Password" />
           </div>
           <div class="button-container">
-            <button class="login-button">LOGIN</button>
+            <button class="submit-button">LOGIN</button>
           </div>
           <input type="hidden" name="auth_login" />
         </form>
