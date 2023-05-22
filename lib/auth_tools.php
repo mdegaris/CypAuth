@@ -1,16 +1,5 @@
 <?php
 
-require("database.php");
-
-$AUTH_SQL = <<<SQL
-SELECT cyp_lib.authenticate.local_auth(:username, :location, :password) AS :success
-FROM DUAL
-SQL;
-
-$RESET_PASSWORD_CHECK_SQL = <<<SQL
-SELECT cyp_lib.authenticate.reset_password_check(:username) AS :do_reset
-FROM DUAL
-SQL;
 
 
 function _selectSingleValue($row, $name)
