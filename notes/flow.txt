@@ -1,0 +1,52 @@
+labwork.php?firstime
+
+if firsttime param and auth_cookie not set:
+	redirect to authenticate.php?reset; END;
+if auth_cookie not set:
+	redirect to authenticate.php
+
+authenticate.php
+	If reset parameter:
+		Reset password fields; user, pw, cpw
+		User and passwords invalid; Feedback; END
+Successfully update user’s local password. SHA512 Hash.
+		Create intranet cookie.
+Feedback and delay (5 seconds)
+Redirect to $_SERVER[‘HTTP_REFERRER]
+	If no reset parameter:
+		Login fields: user and pw
+		On Submit:
+			Is form invalid: Feedback; END
+			If user invalid: Feedback; END;
+			If reset password redirect to authenticate.php?reset ; END
+			Attempt authentication:
+				Failed auth; Feedback; END;
+				Success auth:
+					Create Intranet cookie.
+					Feedback and delay
+			Redirect to $_SERVER[‘HTTP_REFERRER]
+
+
+
+
+
+    Validation check (username and password)
+    Validation fail:
+      Feedback message: Populate fields; END
+    Check user existence
+    User does not exist:
+      Feedback message: Could not find user. Attempt the following format: John Robinson (jsmith or johrobin).; END
+    User exists:
+      User Creds from cy_user db table to create User object.
+      Confirm user is local auth and enables:
+        If not: Feedback message; END
+      Query User obj for Reset Password required:
+        Redirect to reset password page (POST param; user=username).; END
+      Reset Password not required
+        Attempt to authenticate
+        Authenticate success:
+          Return to HTTP_REDIRECT.; END
+        Authenticate failure:
+          Feedback message: Invalid login password; END
+      
+

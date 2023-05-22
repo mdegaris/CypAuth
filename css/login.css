@@ -6,7 +6,8 @@
   --clr-hightlight-1: rgb(244, 244, 244);
   --clr-hightlight-2: rgb(153, 153, 153);
   --clr-hightlight-3: rgb(0, 154, 200);
-  --clr-error: rgb(239, 16, 16);
+  --clr-failure: rgb(239, 16, 16);
+  --clr-success: rgb(0, 136, 55);
 }
 
 * {
@@ -65,8 +66,8 @@ input:focus {
 
 button {
   font-weight: 700;
-  font-size: 1.7rem;
-  letter-spacing: 0.5rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.4rem;
   color: var(--clr-primary-2);
   padding: 0.5rem;
   height: 4rem;
@@ -140,5 +141,12 @@ button:active {
 .feedback-container {
   margin: 0 auto;
   width: fit-content;
-  color: var(--clr-error);
+}
+
+.failure {
+  color: var(--clr-failure);
+}
+
+.success {
+  color: var(--clr-success);
 }

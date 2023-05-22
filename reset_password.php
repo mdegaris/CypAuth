@@ -1,4 +1,26 @@
 <?php
+
+
+/*
+    Validation check (password and confirm password both populated, equal, and strong enough)
+    Validation fail:
+      Feedback message: ... ;  END
+    Get user=username POST PARAM:
+      If not exist:
+        Feedback message: No user found ; END
+      If exist:
+        Build User object from DB.
+
+    Sanity check for user exist, local and enabled:
+      Feedback if not ; END
+    
+    Update database with password for user:
+      encrpyt with sha512.
+    
+    Redirect to Login.
+      
+  */
+
 ?>
 
 
