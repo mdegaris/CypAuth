@@ -1,6 +1,5 @@
 <?php
 
-
 // ============================================================
 
 class FormHelper
@@ -46,7 +45,7 @@ function getGetParam($name)
     return _getParam($_GET, $name);
 }
 
-function getCookieParam($name)
+function getCookieValue($name)
 {
     return _getParam($_COOKIE, $name);
 }

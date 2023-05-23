@@ -1,33 +1,101 @@
 <?php
 
-$HASHING_ALGORITHM = 'sha512';
 
-
-/*
-    Checks that a give password has:
-    Length 8 characters long.
-    Contains lower case letter.
-    
-*/
-function check_password_strength($password)
+class Password
 {
-    $pw_strength_regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*-]).{8,}$";
 
-    if (preg_match($pw_strength_regex, $password)) {
-        return true;
+    private static $SET_PASSWORD_PLSQL = <<<SQL
+    SELECT cyp_lib.authenticate.set_local_password(:account_uid, :encrypted_password)
+    FROM DUAL
+SQL;
+
+    private static $HASHING_ALGORITHM = 'sha512';
+    private static $STRENGTH_REGEX = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*-,.]).{8,}$/';
+    private static $HTML_ERROR_NOT_POPULATE = "Populate both password fields";
+    private static $HTML_ERROR_NO_MATCH = "Password fields don't match";
+    private static $HTML_ERROR_WEAK = "Password is too weak";
+
+    private static $HTML_ERROR_WEAK_HELP = <<<HTML
+    <div>
+        Passwords musts be at least:
+    </div>
+    <ul>
+        <li>8 characters in length</li>
+        <li>Contain 1 uppercase letter</li>
+        <li>Contain 1 lowercase letter</li>
+        <li>Contain 1 special symbol: !@#$%^&*-,.</li>
+    </ul>
+HTML;
+
+
+    public static function hashedPassword($password)
+    {
+        return hash(Password::$HASHING_ALGORITHM, $password);
     }
 
-    return false;
-}
 
+    public $user;
+    public $newPassword;
+    public $confirmPassword;
 
-function hash_password($password)
-{
-    global $HASHING_ALGORITHM;
-
-    if ($password) {
-        return hash($HASHING_ALGORITHM, $password);
+    private function isPopulatedCheck()
+    {
+        return ($this->newPassword and $this->confirmPassword);
     }
 
-    return null;
+    private function areMatchingCheck()
+    {
+        return ($this->newPassword === $this->confirmPassword);
+    }
+
+    private function isWeak()
+    {
+        return (preg_match(Password::$STRENGTH_REGEX, $this->newPassword) == false);
+    }
+
+    public function feedbackError()
+    {
+        if (!$this->isPopulatedCheck()) {
+            return Password::$HTML_ERROR_NOT_POPULATE;
+        }
+
+        if (!$this->areMatchingCheck()) {
+            return Password::$HTML_ERROR_NO_MATCH;
+        }
+
+        if ($this->isWeak()) {
+            return Password::$HTML_ERROR_WEAK;
+        }
+    }
+
+    public function feedbackHelp()
+    {
+        if (
+            $this->isPopulatedCheck() and
+            $this->areMatchingCheck() and
+            $this->isWeak()
+        ) {
+            return Password::$HTML_ERROR_WEAK_HELP;
+        }
+    }
+
+
+    public function setNewPasswordInDB()
+    {
+
+        dbQuery(
+            Password::$SET_PASSWORD_PLSQL,
+            array(
+                "account_uid" => $this->user->username,
+                "encrypted_password" => Password::hashedPassword($this->newPassword)
+            )
+        );
+    }
+
+    function __construct($usrObj, $newPwd, $confirmPwd)
+    {
+        $this->user = $usrObj;
+        $this->newPassword = FormHelper::Trimmer($newPwd);
+        $this->confirmPassword = FormHelper::Trimmer($confirmPwd);
+    }
 }

@@ -1,38 +1,95 @@
 <?php
 
-$COOKIE_NAME = "auth_cookie";
-$COOKIE_LIFE = time() + 60 * 60 * 24 * 365;  // One year
-$DOMAIN = "cyprotex.com";
-$HASH_SALT = "ziggy";
-$TIME_NOW = time();
-
-
-function _build_hash($username, $location)
+class Cookie
 {
-  global $TIME_NOW, $HASH_SALT;
+  private static $instance = null;
+  private static $HTTP_REF_COOKIE_NAME = "http_referrer";
+  private static $AUTH_COOKIE_NAME = "auth_cookie";
+  private static $DEFAULT_LOCATION = 'Macclesfield';
+  private static $DOMAIN = "localhost";
+  private static $HASH_SALT = "ziggy";
 
-  if ($username and $location) {
-    return md5("${username}|${location}|${TIME_NOW}|${HASH_SALT}");
+  // ======================================================
+
+  private $cookieLife = null;
+  private $timeNow = null;
+
+  // ======================================================
+
+  public static function GetInstance()
+  {
+    if (self::$instance === null) {
+      self::$instance = new Cookie();
+    }
+
+    return self::$instance;
   }
-}
 
-
-function _cookie_value($username, $location, $login_hash)
-{
-  global $TIME_NOW;
-
-  if ($username and $location and $login_hash) {
-    return "${username}|${location}|${TIME_NOW}|${login_hash}";
+  public static function HasAuthCookie()
+  {
+    return getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
   }
-}
+
+  // ======================================================
+
+  private function destroyCookie($cookieName)
+  {
+    if (isset($_COOKIE[$cookieName])) {
+      unset($_COOKIE[$cookieName]);
+      setcookie($cookieName, '', time() - 3600, '/');
+    }
+  }
+
+  private function buildHash($username, $location)
+  {
+    if ($username and $location) {
+      return md5(sprintf("%s|%s|%s|%s", $username, $location, $this->timeNow, self::$HASH_SALT));
+    }
+  }
+
+  private function cookieValue($username, $location, $loginHash)
+  {
+    if ($username and $location and $loginHash) {
+      return sprintf("%s|%s|%s|%s", $username, $location, $this->timeNow, $loginHash);
+    }
+  }
+
+  // ======================================================
+
+  public function saveAuthCookie($username, $loc = null)
+  {
+    $location = $loc == null ? self::$DEFAULT_LOCATION : $loc;
+
+    $cookieValue = Cookie::cookieValue(
+      $username,
+      $location,
+      $this->buildHash($username, $location)
+    );
+
+    setcookie(self::$AUTH_COOKIE_NAME, $cookieValue, $this->cookieLife, '/', self::$DOMAIN);
+  }
+
+  public function saveHttpRefCookie($url)
+  {
+    setcookie(self::$HTTP_REF_COOKIE_NAME, $url);
+  }
+
+  public function readOnceHttpRefCookie()
+  {
+    return $this->retrieveAndDestroy(self::$HTTP_REF_COOKIE_NAME);
+  }
+
+  public function retrieveAndDestroy($cookieName)
+  {
+    $cookieValue = getCookieValue($cookieName);
+    $this->destroyCookie($cookieName);
+    return $cookieValue;
+  }
 
 
-function save_cookie($username, $location)
-{
-  global $COOKIE_NAME, $COOKIE_LIFE, $DOMAIN;
-
-  $login_hash = _build_hash($username, $location);
-  $cookie_value = _cookie_value($username, $location, $login_hash);
-
-  setcookie($COOKIE_NAME, $cookie_value, $COOKIE_LIFE, '/', $DOMAIN);
+  private function __construct()
+  {
+    $this->timeNow = time();
+    $this->cookieLife = ($this->timeNow + 60 * 60 * 24 * 365); // One year
+  }
 }

@@ -1,20 +1,22 @@
 <?php
 
-require_once("lib/forms_helper.php");
+// Top level setup
+require_once("lib/path_finder.php");
+
+// ============================================================
+
+require_once($PATH->absPath("/lib/forms_helper.php"));
+require_once($PATH->absPath("/lib/cookie.php"));
 
 // $db_user = getenv("CS_DB_RO_USER");
 // $db_pass = getenv("CS_DB_RO_PASSWORD");
 // $db_instance = getenv("CS_DB_INSTANCE");
 
+// ============================================================
 
-function doInitialSetup()
+function doPasswordReset()
 {
-    return getGetParam("setup") !== null;
-}
-
-function hasAuthCookie()
-{
-    return getCookieParam("auth_cookie") !== null;
+    return getGetParam("reset") !== null;
 }
 
 function hasUser()
@@ -23,17 +25,12 @@ function hasUser()
 }
 
 
-
-if (doInitialSetup() and !hasAuthCookie()) {
-    // var_dump($_REQUEST);
-    // var_dump($_COOKIE);
-    $includeFragment = "fragments/_reset.php";
+if (doPasswordReset() and !Cookie::HasAuthCookie()) {
+    $includeFragment = $PATH->absPath("/fragments/_reset.php");
 } else {
-    $includeFragment = "fragments/_login.php";
+    $includeFragment = $PATH->absPath("/fragments/_login.php");
 }
-
 ?>
-
 
 
 <!DOCTYPE html>

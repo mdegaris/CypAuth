@@ -1,7 +1,6 @@
 <?php
-require_once("lib/forms_helper.php");
+require_once($PATH->absPath("/lib/forms_helper.php"));
 ?>
-
 
 <form method="post">
     <div class="field-container">

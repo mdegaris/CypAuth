@@ -100,6 +100,7 @@ li {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10rem;
+  padding-bottom: 1.2rem;
   background-color: var(--clr-primary-2);
   min-width: 40rem;
   width: 50rem;
