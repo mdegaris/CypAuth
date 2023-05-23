@@ -23,11 +23,19 @@ WHERE EXISTS
     )
 SQL;
 
-$USER_LOGIN_CREDS_SQL = <<<SQL
-SELECT account_uid, encrypted_local_password, local_password, reset_password
+$USER_CREDS_SQL = <<<SQL
+SELECT account_uid, encrypted_local_password, local_password, reset_password, account_disabled
 FROM cyprotex.cy_user
 WHERE cy_user.account_uid = :username
 SQL;
+
+
+function fetchUserData($dbConnection, $username)
+{
+    global $USER_CREDS_SQL;
+
+    $row = dbQuery($USER_CREDS_SQL, array("username" => $username));
+}
 
 
 function _selectSingleValue($row, $name)
