@@ -54,6 +54,13 @@ class Cookie
     }
   }
 
+  private function getAndDestroyCookie($cookieName)
+  {
+    $cookieValue = getCookieValue($cookieName);
+    $this->destroyCookie($cookieName);
+    return $cookieValue;
+  }
+
   // ======================================================
 
   public function saveAuthCookie($username, $loc = null)
@@ -76,14 +83,7 @@ class Cookie
 
   public function readOnceHttpRefCookie()
   {
-    return $this->retrieveAndDestroy(self::$HTTP_REF_COOKIE_NAME);
-  }
-
-  public function retrieveAndDestroy($cookieName)
-  {
-    $cookieValue = getCookieValue($cookieName);
-    $this->destroyCookie($cookieName);
-    return $cookieValue;
+    return $this->getAndDestroyCookie(self::$HTTP_REF_COOKIE_NAME);
   }
 
 

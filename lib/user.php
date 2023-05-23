@@ -1,6 +1,7 @@
 <?php
 
 // require("database.php");
+require_once($PATH->absPath("/lib/password.php"));
 
 class User
 {
@@ -12,6 +13,7 @@ SQL;
 
 
     private static $HTML_ERROR_EMPTY = "Please enter a username";
+    private static $HTML_ERROR_LOGIN_EMPTY = "Missing username or password";
     private static $HTML_ERROR_ACC_DISABLED = "This account has been disabled";
     private static $HTML_ERROR_NOT_LOCAL = "This account is not locally authenticated";
     private static $HTML_ERROR_NOT_RESET = "This account is not flagged for resetting";
@@ -33,12 +35,12 @@ HTML;
 
 
     public $username;
-    public $encryptedPassword;
+    public $encryptedSavedPassword;
     public $locallyAuthenticated;
     public $resetPassword;
     public $accountEnabled;
     public $exists;
-    public $isEmpty;
+    public $isUserEmpty;
 
     public static function createFromDatabase($username)
     {
@@ -57,7 +59,7 @@ HTML;
         if ($username == "mdegaris") {
             return new User(
                 $username,
-                "fsdj9fuasd90fjweipfjwef09wjef90pwjef09wejf",
+                Password::HashedPassword("test123"),
                 "Y",
                 // reset
                 "Y",
@@ -71,9 +73,9 @@ HTML;
 
     }
 
-    public function feedbackError()
+    public function feedbackError($login = false)
     {
-        if ($this->isEmpty) {
+        if ($this->isUserEmpty) {
             return User::$HTML_ERROR_EMPTY;
         }
 
@@ -96,29 +98,22 @@ HTML;
 
     public function feedbackHelp()
     {
-        if (!$this->isEmpty and !$this->exists) {
+        if (!$this->isUserEmpty and !$this->exists) {
             return User::$HTML_ERROR_USER_FIND_HELP;
         }
     }
 
     // =============================================================
 
-    public function authenticate($password)
-    {
-        return ($this->encryptedPassword === Password::hashedPassword($password));
-    }
-
-    // =============================================================
-
-    function __construct($usr, $encryptPwd = null, $resetPwd = null, $localPwd = null, $accEnabled = null)
+    function __construct($usr, $encryptedPwd = null, $resetPwd = null, $localPwd = null, $accEnabled = null)
     {
         $this->username = FormHelper::Trimmer($usr);
 
-        $this->isEmpty = $this->username ? false : true;
+        $this->isUserEmpty = $this->username ? false : true;
         $this->exists = ($resetPwd or $localPwd or $accEnabled);
 
         if ($this->exists) {
-            $this->encryptedPassword = $encryptPwd;
+            $this->encryptedSavedPassword = $encryptedPwd;
             $this->resetPassword = $resetPwd === 'Y' ? true : false;
             $this->locallyAuthenticated = $localPwd === 'Y' ? true : false;
             $this->accountEnabled = $accEnabled === 'Y' ? true : false;

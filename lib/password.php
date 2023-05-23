@@ -1,5 +1,6 @@
 <?php
 
+require_once($PATH->absPath("/lib/forms_helper.php"));
 
 class Password
 {
@@ -28,9 +29,13 @@ SQL;
 HTML;
 
 
-    public static function hashedPassword($password)
+    public static function HashedPassword($password)
     {
-        return hash(Password::$HASHING_ALGORITHM, $password);
+        if ($password) {
+            return hash(Password::$HASHING_ALGORITHM, $password);
+        }
+
+        return null;
     }
 
 
@@ -87,7 +92,7 @@ HTML;
             Password::$SET_PASSWORD_PLSQL,
             array(
                 "account_uid" => $this->user->username,
-                "encrypted_password" => Password::hashedPassword($this->newPassword)
+                "encrypted_password" => Password::HashedPassword($this->newPassword)
             )
         );
     }

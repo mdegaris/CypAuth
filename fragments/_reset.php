@@ -13,9 +13,9 @@ if (isParamPresent(FormHelper::SUBMIT_USER)) {
 
     $username = getPostParam(FormHelper::USERNAME_RESET);
 
-    $userObj = User::createFromDatabase($username);
-    $feedbackErr = $userObj->feedbackError();
-    $feedbackHelp = $userObj->feedbackHelp();
+    $user = User::createFromDatabase($username);
+    $feedbackErr = $user->feedbackError();
+    $feedbackHelp = $user->feedbackHelp();
 
     if (!$feedbackErr) {
         $resetIncludeFrag = $PATH->absPath("/fragments/_new_password.php");
@@ -27,14 +27,14 @@ if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
     $newPwd = getPostParam(FormHelper::NEW_PASSWORD_RESET);
     $confirmPwd = getPostParam(FormHelper::CONFIRM_PASSWORD_RESET);
 
-    $userObj = User::createFromDatabase($username);
-    $passwordObj = new Password($userObj, $newPwd, $confirmPwd);
+    $user = User::createFromDatabase($username);
+    $passwordObj = new Password($user, $newPwd, $confirmPwd);
     $feedbackErr = $passwordObj->feedbackError();
     $feedbackHelp = $passwordObj->feedbackHelp();
 
     if (!$feedbackErr) {
         // $passwordObj->setNewPasswordInDB();
-        Cookie::GetInstance()->saveAuthCookie($userObj->username);
+        Cookie::GetInstance()->saveAuthCookie($user->username);
         $referrer_url = Cookie::GetInstance()->readOnceHttpRefCookie();
         echo ($referrer_url);
         header("Location: $referrer_url");
@@ -46,7 +46,7 @@ if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 
 ?>
 
-<?php if ($feedbackErr): ?>
+<?php if (isset($feedbackErr) and $feedbackErr): ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -56,7 +56,7 @@ if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 require($resetIncludeFrag);
 ?>
 
-<?php if ($feedbackHelp): ?>
+<?php if (isset($feedbackHelp) and $feedbackHelp): ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>

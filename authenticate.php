@@ -19,11 +19,6 @@ function doPasswordReset()
     return getGetParam("reset") !== null;
 }
 
-function hasUser()
-{
-    return getPostParam("reset_pw_user") !== null;
-}
-
 
 if (doPasswordReset() and !Cookie::HasAuthCookie()) {
     $includeFragment = $PATH->absPath("/fragments/_reset.php");
