@@ -12,13 +12,13 @@ $force_setup = isParamPresent("setup");
 
 if ($force_setup and !Cookie::HasAuthCookie()) {
     Cookie::GetInstance()->saveHttpRefCookie($PATH->urlPath(true));
-    header("Location: authenticate.php?reset");
+    header("Location: auth.php?reset");
     exit();
 }
 
 
 if (!Cookie::HasAuthCookie()) {
-    header("Location: authenticate.php");
+    header("Location: auth.php");
     exit();
 }
 

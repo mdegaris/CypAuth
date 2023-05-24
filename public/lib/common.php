@@ -3,7 +3,7 @@
 require_once("path_finder.php");
 
 // Setup Globals
-$PATH = Path::GetInstance("/var/ww/html/labsys_portal");
+$PATH = Path::GetInstance("/var/www/html/labsys_portal");
 
 $app_configs = parse_ini_file($PATH->absPath("/conf/labsys_portal.conf"));
 $db_creds_file = realpath(sprintf("%s" . DIRECTORY_SEPARATOR . "%s", $app_configs['CS_ROOT'], $app_configs['DB_CREDENTIALS_FILE']));

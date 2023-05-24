@@ -9,6 +9,7 @@ require_once($PATH->absPath("/lib/cookie.php"));
 
 $resetIncludeFrag = $PATH->absPath("/fragments/_username.php");
 
+
 if (isParamPresent(FormHelper::SUBMIT_USER)) {
 
     $username = getPostParam(FormHelper::USERNAME_RESET);
@@ -33,10 +34,10 @@ if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
     $feedbackHelp = $passwordObj->feedbackHelp();
 
     if (!$feedbackErr) {
-        // $passwordObj->setNewPasswordInDB();
+        $passwordObj->setNewPasswordInDB();
+        dbCommit();
         Cookie::GetInstance()->saveAuthCookie($user->username);
         $referrer_url = Cookie::GetInstance()->readOnceHttpRefCookie();
-        echo ($referrer_url);
         header("Location: $referrer_url");
         exit();
     } else {
@@ -46,7 +47,7 @@ if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 
 ?>
 
-<?php if (isset($feedbackErr) and $feedbackErr): ?>
+<?php if (isset($feedbackErr) and $feedbackErr) : ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -56,7 +57,7 @@ if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 require($resetIncludeFrag);
 ?>
 
-<?php if (isset($feedbackHelp) and $feedbackHelp): ?>
+<?php if (isset($feedbackHelp) and $feedbackHelp) : ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>

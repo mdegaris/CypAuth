@@ -6,7 +6,7 @@ class Cookie
   private static $HTTP_REF_COOKIE_NAME = "http_referrer";
   private static $AUTH_COOKIE_NAME = "auth_cookie";
   private static $DEFAULT_LOCATION = 'Macclesfield';
-  private static $DOMAIN = "localhost";
+  private static $DOMAIN = "cyprotex.com";
   private static $HASH_SALT = "ziggy";
 
   // ============================================================

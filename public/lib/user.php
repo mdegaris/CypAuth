@@ -8,8 +8,8 @@ require_once($PATH->absPath("/lib/password.php"));
 class User
 {
     private static $USER_CREDS_SQL = <<<SQL
-    SELECT account_uid, encrypted_local_password, local_password, reset_password, account_enabled
-    FROM cyprotex.cy_user
+    SELECT account_uid, encrypted_local_password, locally_authenticated, password_reset, account_enabled
+    FROM mdegaris.cy_user
     WHERE cy_user.account_uid = :username
 SQL;
 
@@ -47,14 +47,16 @@ HTML;
 
     public static function createFromDatabase($username)
     {
-        $row = dbQuery(User::$USER_CREDS_SQL, array("username" => $username));
+        $rows = dbQuery(User::$USER_CREDS_SQL, array("username" => $username));
+        $row = $rows and count($rows) == 1 ? $rows[0] : null;
 
         if ($row) {
+            $row = $rows[0];
             return new User(
                 $row['ACCOUNT_UID'],
-                $row['ENCRYPTED_LOCAL_PASSOWRD'],
+                $row['ENCRYPTED_LOCAL_PASSWORD'],
                 $row['PASSWORD_RESET'],
-                $row['LOCAL_PASSWORD'],
+                $row['LOCALLY_AUTHENTICATED'],
                 $row['ACCOUNT_ENABLED']
             );
         }

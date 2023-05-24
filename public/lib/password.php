@@ -8,8 +8,8 @@ class Password
 {
     private static $SET_PASSWORD_PLSQL = <<<SQL
     BEGIN
-        cyp_lib.authenticate.set_Local_Password(:account_uid, :encrypted_password);
-    END
+        mdegaris.authenticate.set_Local_Password(:account_uid, :encrypted_password);
+    END;
 SQL;
 
     // ============================================================
@@ -102,14 +102,12 @@ HTML;
 
     public function setNewPasswordInDB()
     {
-
-        dbQuery(
-            Password::$SET_PASSWORD_PLSQL,
-            array(
-                "account_uid" => $this->user->username,
-                "encrypted_password" => Password::HashedPassword($this->newPassword)
-            )
+        $binds = array(
+            "account_uid" => $this->user->username,
+            "encrypted_password" => Password::HashedPassword($this->newPassword)
         );
+
+        dbExecute(Password::$SET_PASSWORD_PLSQL, $binds);
     }
 
     // ============================================================

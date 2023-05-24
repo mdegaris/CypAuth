@@ -1,7 +1,7 @@
 <?php
 
 require_once($PATH->absPath("/lib/forms_helper.php"));
-require_once($PATH->absPath("/lib/loginUser.php"));
+require_once($PATH->absPath("/lib/login_user.php"));
 require_once($PATH->absPath("/lib/cookie.php"));
 
 
@@ -31,7 +31,7 @@ if (isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
 }
 ?>
 
-<?php if (isset($feedbackErr) and $feedbackErr): ?>
+<?php if (isset($feedbackErr) and $feedbackErr) : ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -48,7 +48,7 @@ if (isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
     <input type="hidden" name="<?= FormHelper::SUBMIT_LOGIN_AUTH ?>" />
 </form>
 
-<?php if (isset($feedbackHelp) and $feedbackHelp): ?>
+<?php if (isset($feedbackHelp) and $feedbackHelp) : ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>

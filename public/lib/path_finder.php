@@ -51,7 +51,7 @@ class Path
         if ($forceDocRoot == null) {
             $this->docRoot = $_SERVER['DOCUMENT_ROOT'];
         } else {
-            $docRoot = $forceDocRoot;
+            $this->docRoot = $forceDocRoot;
         }
     }
 }
