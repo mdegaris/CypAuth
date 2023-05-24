@@ -3,19 +3,6 @@
 class Cookie
 {
   private static $instance = null;
-  private static $HTTP_REF_COOKIE_NAME = "http_referrer";
-  private static $AUTH_COOKIE_NAME = "auth_cookie";
-  private static $DEFAULT_LOCATION = 'Macclesfield';
-  private static $DOMAIN = "cyprotex.com";
-  private static $HASH_SALT = "ziggy";
-
-  // ============================================================
-
-  private $cookieLife = null;
-  private $timeNow = null;
-
-  // ============================================================
-
   public static function GetInstance()
   {
     if (self::$instance === null) {
@@ -27,10 +14,23 @@ class Cookie
 
   // ============================================================
 
+  private static $DOMAIN = COOKIE_DOMAIN;
+  private static $HTTP_REF_COOKIE_NAME = "http_referrer";
+  private static $AUTH_COOKIE_NAME = "auth_cookie";
+  private static $DEFAULT_LOCATION = 'Macclesfield';
+  private static $HASH_SALT = "ziggy";
+
+  // ============================================================
+
   public static function HasAuthCookie()
   {
-    return getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
+    return FormHelper::getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
   }
+
+  // ============================================================
+
+  private $cookieLife = null;
+  private $timeNow = null;
 
   // ============================================================
 
@@ -38,7 +38,7 @@ class Cookie
   {
     if (isset($_COOKIE[$cookieName])) {
       unset($_COOKIE[$cookieName]);
-      setcookie($cookieName, '', time() - 3600, '/');
+      setcookie($cookieName, '', time() - 3600);
     }
   }
 
@@ -64,7 +64,7 @@ class Cookie
 
   private function getAndDestroyCookie($cookieName)
   {
-    $cookieValue = getCookieValue($cookieName);
+    $cookieValue = FormHelper::getCookieValue($cookieName);
     $this->destroyCookie($cookieName);
     return $cookieValue;
   }

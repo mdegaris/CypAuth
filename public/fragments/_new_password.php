@@ -1,5 +1,5 @@
 <?php
-require_once($PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/forms_helper.php"));
 ?>
 
 <form method="post">
@@ -12,6 +12,7 @@ require_once($PATH->absPath("/lib/forms_helper.php"));
     <div class="button-container">
         <button>SET PASSWORD</button>
     </div>
-    <input type="hidden" name="<?= FormHelper::USERNAME_RESET ?>" value=<?= getPostParam(FormHelper::USERNAME_RESET) ?> />
+    <input type="hidden" name="<?= FormHelper::USERNAME_RESET ?>"
+        value=<?= FormHelper::getPostParam(FormHelper::USERNAME_RESET) ?> />
     <input type="hidden" name="<?= FormHelper::SUBMIT_PASSWORD_RESET ?>" />
 </form>

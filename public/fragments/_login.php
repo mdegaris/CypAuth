@@ -1,14 +1,15 @@
 <?php
 
-require_once($PATH->absPath("/lib/forms_helper.php"));
-require_once($PATH->absPath("/lib/login_user.php"));
-require_once($PATH->absPath("/lib/cookie.php"));
+require_once($_PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/fragments.php"));
+require_once($_PATH->absPath("/lib/login_user.php"));
+require_once($_PATH->absPath("/lib/cookie.php"));
 
 
-if (isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
+if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
 
-    $username = getPostParam(FormHelper::USERNAME_LOGIN);
-    $password = getPostParam(FormHelper::PASSWORD_LOGIN);
+    $username = FormHelper::getPostParam(FormHelper::USERNAME_LOGIN);
+    $password = FormHelper::getPostParam(FormHelper::PASSWORD_LOGIN);
 
     $loginUser = new LoginUser($username, $password);
     $feedbackErr = $loginUser->feedbackError();
@@ -25,13 +26,13 @@ if (isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
             }
             exit();
         } else {
-            $feedbackErr = "Incorrect username/password";
+            $feedbackErr = Fragments::GetInstance()->login;
         }
     }
 }
 ?>
 
-<?php if (isset($feedbackErr) and $feedbackErr) : ?>
+<?php if (!empty($feedbackErr)): ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -48,7 +49,7 @@ if (isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
     <input type="hidden" name="<?= FormHelper::SUBMIT_LOGIN_AUTH ?>" />
 </form>
 
-<?php if (isset($feedbackHelp) and $feedbackHelp) : ?>
+<?php if (!empty($feedbackHelp)): ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>

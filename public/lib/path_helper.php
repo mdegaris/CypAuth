@@ -17,23 +17,32 @@ class Path
 
     private $docRoot;
 
-    public function absPath($urlPath)
+    // Build the full absolute path from a relative path.
+    public function absPath($relPath)
     {
-        $strPath = sprintf("%s%s%s", $this->docRoot, DIRECTORY_SEPARATOR, $urlPath);
-        $rlPath = realpath($strPath);
+        $sPath = sprintf("%s%s%s", $this->docRoot, DIRECTORY_SEPARATOR, $relPath);
+        $rPath = realpath($sPath);
 
-        if (!$rlPath) {
-            throw new Exception("Error building absolute file path. $strPath does not exist.");
+        if (!$rPath) {
+            throw new Exception("Error building absolute file path. $sPath does not exist.");
         }
 
-        return $rlPath;
+        return $rPath;
     }
 
     // ============================================================
 
+    // Get the current URL path
     public function urlPath($stripExtra = false)
     {
-        $url = (sprintf("%s://%s%s", (empty($_SERVER['HTTPS']) ? 'http' : 'https'), $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']));
+        $url = (
+            sprintf(
+                "%s://%s%s",
+                (empty($_SERVER['HTTPS']) ? 'http' : 'https'),
+                $_SERVER['HTTP_HOST'],
+                $_SERVER['REQUEST_URI']
+            )
+        );
 
         if ($stripExtra) {
             $pos = strripos($url, $_SERVER['PHP_SELF']);

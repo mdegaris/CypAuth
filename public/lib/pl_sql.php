@@ -1,6 +1,6 @@
 <?php
 
-require_once($PATH->absPath("/lib/database.php"));
+require_once($_PATH->absPath("/lib/database.php"));
 
 $SET_PASSWORD_SQL = <<<SQL
 SELECT cyp_lib.authenticate.set_local_password(:account_uid, :encrypted_password)

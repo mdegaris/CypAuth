@@ -1,6 +1,6 @@
 <?php
 
-require_once($PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/forms_helper.php"));
 
 // ============================================================
 
@@ -107,7 +107,21 @@ HTML;
             "encrypted_password" => Password::HashedPassword($this->newPassword)
         );
 
-        dbExecute(Password::$SET_PASSWORD_PLSQL, $binds);
+        $error = dbExecute(Password::$SET_PASSWORD_PLSQL, $binds);
+
+        if ($error) {
+            dbRollback();
+            $errMes = sprintf(
+                "Database error when setting local password: %s. Code=%d. Offset=%d. SQL=%s",
+                $error['message'],
+                $error['code'],
+                $error['offset'],
+                $error['sqltext']
+            );
+            throw new Exception($errMes, $error['code']);
+        } else {
+            dbCommit();
+        }
     }
 
     // ============================================================

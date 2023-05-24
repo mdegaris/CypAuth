@@ -1,7 +1,7 @@
 <?php
 
-require_once($PATH->absPath("/lib/user.php"));
-require_once($PATH->absPath("/lib/password.php"));
+require_once($_PATH->absPath("/lib/user.php"));
+require_once($_PATH->absPath("/lib/password.php"));
 
 class LoginUser
 {

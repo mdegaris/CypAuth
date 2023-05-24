@@ -3,17 +3,11 @@
 $dbConnected = false;
 
 
-function dbConnect(&$db_credentials = null)
+function dbConnect()
 {
-	global $db_user, $db_pass, $db_instance, $dbHandle, $dbConnected;
+	global $dbHandle, $dbConnected;
 
-	if ($db_credentials) {
-		$db_user = $db_credentials["db_user"];
-		$db_pass = $db_credentials["db_pass"];
-		$db_instance = $db_credentials["db_instance"];
-	}
-
-	if (!$dbHandle = oci_connect($db_user, $db_pass, $db_instance)) {
+	if (!$dbHandle = oci_connect(DB_USER, DB_PASS, DB_INSTANCE)) {
 		echo "<b style=\"color:red;\">Error: Unable to connect to database</b>";
 		exit;
 	}

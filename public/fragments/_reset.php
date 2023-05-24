@@ -1,63 +1,70 @@
 <?php
 
-require_once($PATH->absPath("/lib/forms_helper.php"));
-require_once($PATH->absPath("/lib/user.php"));
-require_once($PATH->absPath("/lib/password.php"));
-require_once($PATH->absPath("/lib/pl_sql.php"));
-require_once($PATH->absPath("/lib/cookie.php"));
+require_once($_PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/fragments.php"));
+require_once($_PATH->absPath("/lib/user.php"));
+require_once($_PATH->absPath("/lib/password.php"));
+require_once($_PATH->absPath("/lib/cookie.php"));
 
 
-$resetIncludeFrag = $PATH->absPath("/fragments/_username.php");
+$includeFrag = Fragments::GetInstance()->username;
 
+// ============================================================
 
-if (isParamPresent(FormHelper::SUBMIT_USER)) {
+if (FormHelper::isParamPresent(FormHelper::SUBMIT_USER)) {
 
-    $username = getPostParam(FormHelper::USERNAME_RESET);
-
-    $user = User::createFromDatabase($username);
-    $feedbackErr = $user->feedbackError();
-    $feedbackHelp = $user->feedbackHelp();
+    $username = FormHelper::getPostParam(FormHelper::USERNAME_RESET);
+    $userObj = User::createFromDatabase($username);
+    $feedbackErr = $userObj->feedbackError();
+    $feedbackHelp = $userObj->feedbackHelp();
 
     if (!$feedbackErr) {
-        $resetIncludeFrag = $PATH->absPath("/fragments/_new_password.php");
+        $includeFrag = Fragments::GetInstance()->new_password;
     }
 }
 
-if (isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
-    $username = getPostParam(FormHelper::USERNAME_RESET);
-    $newPwd = getPostParam(FormHelper::NEW_PASSWORD_RESET);
-    $confirmPwd = getPostParam(FormHelper::CONFIRM_PASSWORD_RESET);
+// ============================================================
 
-    $user = User::createFromDatabase($username);
-    $passwordObj = new Password($user, $newPwd, $confirmPwd);
+if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
+    $username = FormHelper::getPostParam(FormHelper::USERNAME_RESET);
+    $newPwd = FormHelper::getPostParam(FormHelper::NEW_PASSWORD_RESET);
+    $confirmPwd = FormHelper::getPostParam(FormHelper::CONFIRM_PASSWORD_RESET);
+
+    $userObj = User::createFromDatabase($username);
+    $passwordObj = new Password($userObj, $newPwd, $confirmPwd);
     $feedbackErr = $passwordObj->feedbackError();
     $feedbackHelp = $passwordObj->feedbackHelp();
 
     if (!$feedbackErr) {
         $passwordObj->setNewPasswordInDB();
-        dbCommit();
-        Cookie::GetInstance()->saveAuthCookie($user->username);
+        Cookie::GetInstance()->saveAuthCookie($userObj->username);
+
+        logMessage("");
+
         $referrer_url = Cookie::GetInstance()->readOnceHttpRefCookie();
         header("Location: $referrer_url");
         exit();
     } else {
-        $resetIncludeFrag = $PATH->absPath("/fragments/_new_password.php");
+        $includeFrag = Fragments::GetInstance()->new_password;
+        ;
     }
+
+    // ============================================================
 }
 
 ?>
 
-<?php if (isset($feedbackErr) and $feedbackErr) : ?>
+<?php if (!empty($feedbackErr)): ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
 <?php endif; ?>
 
 <?php
-require($resetIncludeFrag);
+require($includeFrag);
 ?>
 
-<?php if (isset($feedbackHelp) and $feedbackHelp) : ?>
+<?php if (!empty($feedbackHelp)): ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>

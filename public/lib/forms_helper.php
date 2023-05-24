@@ -15,44 +15,41 @@ class FormHelper
     const SUBMIT_USER = '_sub_usr';
     const SUBMIT_PASSWORD_RESET = '_sub_rpw';
 
-    static function Trimmer($v)
+    private static function getParam($scopeMap, $name)
+    {
+        return isset($scopeMap[$name]) ? $scopeMap[$name] : null;
+    }
+
+    public static function getRequestParam($name)
+    {
+        return self::getParam($_REQUEST, $name);
+    }
+
+    public static function getPostParam($name)
+    {
+        return self::getParam($_POST, $name);
+    }
+
+    public static function getGetParam($name)
+    {
+        return self::getParam($_GET, $name);
+    }
+
+    public static function getCookieValue($name)
+    {
+        return self::getParam($_COOKIE, $name);
+    }
+
+    public static function isParamPresent($name)
+    {
+        return isset($_REQUEST[$name]);
+    }
+
+
+    public static function Trimmer($v)
     {
         return trim($v . "");
     }
-}
-
-// ============================================================
-
-function _getParam($scopeMap, $name)
-{
-    return isset($scopeMap[$name]) ? $scopeMap[$name] : null;
-}
-
-// ============================================================
-
-function getRequestParam($name)
-{
-    return _getParam($_REQUEST, $name);
-}
-
-function getPostParam($name)
-{
-    return _getParam($_POST, $name);
-}
-
-function getGetParam($name)
-{
-    return _getParam($_GET, $name);
-}
-
-function getCookieValue($name)
-{
-    return _getParam($_COOKIE, $name);
-}
-
-function isParamPresent($name)
-{
-    return isset($_REQUEST[$name]);
 }
 
 // ============================================================

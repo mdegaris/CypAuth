@@ -5,25 +5,24 @@ require_once("lib/common.php");
 
 // ============================================================
 
-require_once($PATH->absPath("/lib/forms_helper.php"));
-require_once($PATH->absPath("/lib/cookie.php"));
-
-// $db_user = getenv("CS_DB_RO_USER");
-// $db_pass = getenv("CS_DB_RO_PASSWORD");
-// $db_instance = getenv("CS_DB_INSTANCE");
+require_once($_PATH->absPath("/lib/fragments.php"));
+require_once($_PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/cookie.php"));
 
 // ============================================================
 
+// Checks if the reset flag in the URL is set.
 function doPasswordReset()
 {
-    return getGetParam("reset") !== null;
+    return FormHelper::getGetParam("reset") !== null;
 }
 
-
+// If we're (re)setting the password, then start the reset password flow.
+// Else start the login flow.
 if (doPasswordReset() and !Cookie::HasAuthCookie()) {
-    $includeFragment = $PATH->absPath("/fragments/_reset.php");
+    $includeFragment = Fragments::GetInstance()->reset;
 } else {
-    $includeFragment = $PATH->absPath("/fragments/_login.php");
+    $includeFragment = Fragments::GetInstance()->login;
 }
 ?>
 

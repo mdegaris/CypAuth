@@ -1,5 +1,5 @@
 <?php
-require_once($PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/forms_helper.php"));
 ?>
 
 <form method="post" action="">

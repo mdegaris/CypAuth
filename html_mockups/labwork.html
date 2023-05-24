@@ -1,0 +1,240 @@
+<div style="float: left; margin-right: 50px;">
+  <span class="section">Order System</span>
+  <ul>
+    <li><a
+        href="http://applive.cyprotex.com:8008/documents/Controlled%20Documents/B%20BP%20FS%20-%20Business%20Protocols%20and%20Fact%20Sheets/B002">
+        Quote Builder</a></li>
+    <li>
+      <a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=103">Study Coordination</a>
+      &nbsp;(<a href="/data/HowToUseStudyCoordinator.pdf">help doc</a>)
+    </li>
+    <li><a href="http://applive.cyprotex.com/<?= $php_apps_root_dir ?>/service_definitions/index.php">Service
+        Definitions</a></li>
+    <li><a href="http://applive.cyprotex.com:8008/study_management">Study Management</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=121">CYP0694 Study Management</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/labsys_public/r/cyp1367-study-management">CYP1367 Study
+        Management</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/labsys_public/r/cyp1676-next-status">CYP1676 NEXT
+        Status</a></li>
+  </ul>
+  <ul>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=107">RSI Tracker V2</a></li>
+    <li><a href="http://applive.cyprotex.com/wip/order_sys_order_list.php">Work in Progress</a></li>
+    <li><a href="http://applive.cyprotex.com/wip/order_sys_order_list.php?mode=complete">Completed Orders</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=142">Labsys Registered Compounds &amp; Services</a>
+    </li>
+  </ul>
+  <ul>
+    <li><a href="http://applive.cyprotex.com/<?= $php_apps_root_dir ?>/result_extraction/">Results</a></li>
+  </ul>
+
+  <span class="section">Reports</span>
+  <ul>
+    <li><a href="http://applive.cyprotex.com:8008/reports/Order_System_Metrics">Order System Metrics</a></li>
+    <li><a href="http://applive.cyprotex.com:8008/reports/Accounting">Accounting Feeds</a></li>
+    <li><a
+        href="http://applive.cyprotex.com:8008/reports/Mass_Spec/Compounds_Received_During_The_Last_14_Days_That_Require_Optimisation/?format=xls&location=Macclesfield">Optimisation
+        Status (Macclesfield)</a></li>
+    <li><a
+        href="http://atropos.cyprotex.com:8080/ords/dblive/labsys_public/r/cyprotex-workflow-statistics/optimisation-turnaround-study">Optimisation
+        Statistics (Macclesfield)</a></li>
+  </ul>
+
+  <!-- NJC 04-Aug-2015 : cr15352 - add new section for paperwork store -->
+  <span class="section">Paperwork Store</span>
+  <ul>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=104">UK Paperwork Store Index</a></li>
+  </ul>
+</div>
+
+<div style="float: left;">
+  <span class="section">Laboratory System</span>
+  <ul>
+    <li><a href="<?php echo (getenv('live_labsys_url')) ?>">Labsys Login</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=109:1">Decertification Centre</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=106:1:">Labsys Result Browser</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=111:1:">Labsys Pick Lists</a></li>
+    <li><a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=110:4">Labsys Batch Manager {Microsomes, S9, etc.}</a>
+    </li>
+    <li><a href="/pages/labsys/LabsysAndCloeScreenTips.php">Labsys and Cloe Screen FAQs</a></li>
+    <li>
+      Upload Utilities
+      <ul>
+        <li><a href="<?php echo (getenv('live_sample_list_uploader')) ?>">Sample list upload to all Xevos</a></li>
+        <li><a href="http://applive/cgi-bin/upload_to_qtrap.pl">Sample list upload to all QTRAPS</a></li>
+        <li><a href="http://applive/cgi-bin/upload_to_tecan_genesis.pl">Gemini script upload to Tecan Genesis</a></li>
+        <li><a href="http://applive/cgi-bin/convert_qtrap_to_ms.pl">Sample list convert QTRAP; upload to Xevos</a></li>
+      </ul>
+    </li>
+    <li>Mass Spec Data
+      <ul>
+        <li><a href="http://msrawdata.cyprotex.com/msrawdata.php">Xevo Mass Spec Raw Data Fetcher</a></li>
+        <li><a href="http://applive.cyprotex.com:8008/qtrapdata">QTRAP Data (for MultiQuant work)</a></li>
+      </ul>
+    </li>
+    <li><a href="http://applive.cyprotex.com:8008/iplate_design">Cocktails and I-Plate Design</a></li>
+    <!-- JD 21-Feb-2022 : cr27965 -->
+    <li><a href="http://co-mac-sapd02.cyprotex.com:8084/applive/">Auto Tox Task Wizard</a></li>
+    <li><a href="http://applive.cyprotex.com:8008/hcs">HCS Fitting</a></li>
+    <li><a href="http://applive.cyprotex.com:8008/tox_upload">Tox Instrument Data Upload</a></li>
+    <!-- NJC 22-Oct-2018 : cr23760 -->
+    <li><a href="http://applive.cyprotex.com:8080/reinjection/">Reinjection Site</a></li>
+    <li><a href="http://atropos.labs.cyprotex.com/monitor/">Waters Monitor</a></li>
+    <ul>
+      <li><a href="http://atropos.labs.cyprotex.com/monitor/tecan_view.html">Tecan Monitor</a></li>
+    </ul>
+  </ul>
+</div>
+
+
+<div style="float: left; margin-right: 20px; clear: left; width: 335px;">
+  <span class="section">Utilities</span>
+  <ul>
+    <li><a href="/pages/labsys/plateview.php">CSV Plate Map Viewer</a></li>
+    <li>
+      <a href="/pages/cloescreen/calculations/dmso.php">Calculate required amount of DMSO</a>
+      (<a href="/pages/cloescreen/calculations/dmso_help.php">help</a>)
+    </li>
+    <li>
+      <a href="/pages/cloescreen/calculations/proteins.php">Calculate required amount of proteins</a>
+      (<a href="/pages/cloescreen/calculations/proteins_help.php">help</a>)
+    </li>
+    <li>
+      <a href="/pages/cloe/compinfo/compinfosearch.php">Advanced Compound Search</a>
+    </li>
+    <li>
+      <a href="http://applive.cyprotex.com/label_maker/">Label Maker</a>
+    </li>
+  </ul>
+</div>
+
+<div style="float:left; clear: left; margin-right: 10px;">
+  <span class="section" style="color: red;">Development</span>
+
+  <div>
+    <div style="float: left; margin-top: 0px; margin-right:10px;">
+      <ul style="color: red;">
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=103">Study Coordination</a></li>
+        <li><a href="http://appdev.cyprotex.com/<?= $php_apps_root_dir ?>/service_definitions/index.php">Service
+            Definitions</a></li>
+        <li><a href="http://appdev.cyprotex.com:8008/study_management">Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=121">CYP0694 Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/labsys_public/r/cyp1143-study-management/home">CYP1143
+            Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/labsys_public/r/cyp1367-study-management">CYP1367
+            Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/labsys_public/r/cyp1676-next-status">CYP1676 NEXT
+            Status</a></li>
+      </ul>
+      <ul style="color: red;">
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=107">RSI Tracker V2</a></li>
+        <li><a href="http://appdev.cyprotex.com/wip/order_sys_order_list.php">Work in Progress</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=142">Labsys Registered Compounds &amp;
+            Services</a></li>
+      </ul>
+      <ul style="color: red;">
+        <li><a href="http://appdev.cyprotex.com/<?= $php_apps_root_dir ?>/result_extraction/">Results</a></li>
+        <li><a href="http://appdev.cyprotex.com:8008/reports">Reports</a></li>
+      </ul>
+    </div>
+
+    <div style="float: left; margin-bottom: 0px; margin-top: 0px;">
+      <ul style="color: red;">
+        <li><a href="http://appdev.cyprotex.com:8080/labsys">Labsys Login</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=109:1">Decertification Centre</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=106:1:">Labsys Result Browser</a></li>
+
+        <li style="color: gray;">Labsys Pick Lists</li>
+
+        <li><a href="http://atropos.cyprotex.com:8080/ords/appdev/f?p=110:4">Labsys Batch Manager {Microsomes, S9,
+            etc.}</a></li>
+        <li style="color: gray;">Labsys and Cloe Screen FAQs</li>
+
+        <li><a href="http://appdev.cyprotex.com:8008/iplate_design">Cocktails and I-Plate Design</a></li>
+        <!-- JD 21-Feb-2022 : cr27965 -->
+        <li><a href="http://co-mac-sapd02.cyprotex.com:8081/appdev/">Auto Tox Task Wizard</a></li>
+        <li><a href="http://appdev.cyprotex.com:8008/hcs">HCS Fitting</a></li>
+        <li><a href="http://appdev.cyprotex.com:8008/tox_upload">Tox Instrument Data Upload</a></li>
+
+        <li style="color: gray;">Reinjection Site</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NJC 18-Jun-2019 : cr24642 - identify apptest01 and apptest02 separately to left of development list-->
+<div style="float: left;">
+  <span class="section" style="color: orange;">Test Systems</span>
+
+  <div style="margin-top: 10px;">
+    <span style="color: darkorange; font-weight: bold;">TEST System 01 {apptest01}</span>
+    <!-- NJC 07-Dec-2018 : cr23909 - resurrect Test section for apptest01 -->
+    <div>
+      <ul style="color: darkorange;">
+        <li><a href="http://apptest01.cyprotex.com:8080/labsys/">Labsys Login</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/f?p=110:4">Labsys Batch Manager {Microsomes, S9,
+            etc.}</a></li>
+        <li><a href="http://apptest01.cyprotex.com:8008/iplate_design">Cocktails and I-Plate Design</a></li>
+        <!-- JD 21-Feb-2022 : cr27965 -->
+        <li><a href="http://co-mac-sapd02.cyprotex.com:8082/apptest01/">Auto Tox Task Wizard</a></li>
+        <li><a href="http://apptest01.cyprotex.com:8008/hcs">HCS Fitting</a></li>
+        <li><a href="http://apptest01.cyprotex.com:8008/tox_upload">Tox Instrument Data Upload</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/f?p=103">Study Coordination</a></li>
+        <li><a href="http://apptest01.cyprotex.com:8008/study_management">Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/f?p=121">CYP0694 Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/labsys_public/r/cyp1367-study-management">CYP1367
+            Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/labsys_public/r/cyp1676-next-status">CYP1676 NEXT
+            Status</a></li>
+      </ul>
+      <ul style="color: darkorange;">
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/f?p=107">RSI Tracker V2</a></li>
+        <li><a href="http://apptest01.cyprotex.com/wip/order_sys_order_list.php">Work in Progress</a></li>
+        <li><a href="http://apptest01.cyprotex.com/<?= $php_apps_root_dir ?>/service_definitions/index.php">Service
+            Definitions</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest01/f?p=142">Labsys Registered Compounds &amp;
+            Services</a></li>
+        <li><a href="http://apptest01.cyprotex.com/<?= $php_apps_root_dir ?>/result_extraction/">Results</a></li>
+      </ul>
+      <ul style="color: darkorange;">
+        <li><a href="http://apptest01.cyprotex.com:8008/reports">Reports</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <span style="color: goldenrod; font-weight: bold;">
+      TEST System 02 {apptest02}</span>
+    <div>
+      <ul>
+        <li><a href="http://apptest02.cyprotex.com:8080/labsys/">Labsys Login</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/f?p=110:4">Labsys Batch Manager {Microsomes, S9,
+            etc.}</a></li>
+        <li><a href="http://apptest02.cyprotex.com:8008/iplate_design">Cocktails and I-Plate Design</a></li>
+        <!-- JD 21-Feb-2022 : cr27965 -->
+        <li><a href="http://co-mac-sapd02.cyprotex.com:8083/apptest02/">Auto Tox Task Wizard</a></li>
+        <li><a href="http://apptest02.cyprotex.com:8008/hcs">HCS Fitting</a></li>
+        <li><a href="http://apptest02.cyprotex.com:8008/tox_upload">Tox Instrument Data Upload</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/f?p=103">Study Coordination</a></li>
+        <li><a href="http://apptest02.cyprotex.com:8008/study_management">Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/f?p=121">CYP0694 Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/labsys_public/r/cyp1367-study-management">CYP1367
+            Study Management</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/labsys_public/r/cyp1676-next-status">CYP1676 NEXT
+            Status</a></li>
+      </ul>
+      <ul style="color: goldenrod;">
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/f?p=107">RSI Tracker V2</a></li>
+        <li><a href="http://apptest02.cyprotex.com/wip/order_sys_order_list.php">Work in Progress</a></li>
+        <li><a href="http://apptest02.cyprotex.com/<?= $php_apps_root_dir ?>/service_definitions/index.php">Service
+            Definitions</a></li>
+        <li><a href="http://atropos.cyprotex.com:8080/ords/apptest02/f?p=142">Labsys Registered Compounds &amp;
+            Services</a></li>
+        <li><a href="http://apptest02.cyprotex.com/<?= $php_apps_root_dir ?>/result_extraction/">Results</a></li>
+      </ul>
+      <ul style="color: goldenrod;">
+        <li><a href="http://apptest02.cyprotex.com:8008/reports">Reports</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

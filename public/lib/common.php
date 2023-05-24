@@ -1,32 +1,45 @@
 <?php
 
-require_once("path_finder.php");
+require_once("path_helper.php");
+
 
 // Setup Globals
-$PATH = Path::GetInstance("/var/www/html/labsys_portal");
 
-$app_configs = parse_ini_file($PATH->absPath("/conf/labsys_portal.conf"));
-$db_creds_file = realpath(sprintf("%s" . DIRECTORY_SEPARATOR . "%s", $app_configs['CS_ROOT'], $app_configs['DB_CREDENTIALS_FILE']));
+$doc_root = substr(__DIR__, 0, stripos(__DIR__, "/lib"));
+$_PATH = Path::GetInstance($doc_root);
+
+// Read configs
+$app_configs = parse_ini_file($_PATH->absPath("/conf/labsys_portal.conf"));
+$db_creds_file_str = sprintf(
+    "%s" . DIRECTORY_SEPARATOR . "%s",
+    $app_configs['CS_ROOT'],
+    $app_configs['DB_CREDENTIALS_FILE']
+);
+
+$db_creds_file = realpath($db_creds_file_str);
 
 if (!$db_creds_file) {
-    throw new Exception('Could not find database credentials.');
+    throw new Exception("Could not find database credentials file: $db_creds_file_str");
 }
 
+// Setup global defines
 $db_credentials = parse_ini_file($db_creds_file);
-$db_user = $db_credentials['CS_DB_RO_USER'];
-$db_pass = $db_credentials['CS_DB_RO_PASSWORD'];
-$db_instance = $db_credentials['CS_DB_INSTANCE'];
+define("DB_USER", $db_credentials['CS_DB_RO_USER']);
+define("DB_PASS", $db_credentials['CS_DB_RO_PASSWORD']);
+define("DB_INSTANCE", $db_credentials['CS_DB_RO_USER']);
+define("COOKIE_DOMAIN", $db_credentials['COOKIE_DOMAIN']);
+
 
 
 $gLogFile = "/home/cloe_screen/log/labsys_portal.log";
-function log_message($message, $log_level = LOG_INFO)
+function logMessage($message, $logLevel = LOG_INFO)
 {
     global $gLogFile;
 
     $level = "UNKNOWN";
-    if ($log_level === LOG_INFO) {
+    if ($logLevel === LOG_INFO) {
         $level = "INFO";
-    } elseif ($log_level === LOG_ERR) {
+    } elseif ($logLevel === LOG_ERR) {
         $level = "ERROR";
     }
 
