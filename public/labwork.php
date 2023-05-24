@@ -1,9 +1,12 @@
 <?php
 
-require_once("lib/path_finder.php");
+// Top level setup
+require_once("lib/common.php");
 
 require_once($PATH->absPath("/lib/forms_helper.php"));
 require_once($PATH->absPath("/lib/cookie.php"));
+
+// ============================================================
 
 $force_setup = isParamPresent("setup");
 
@@ -18,5 +21,7 @@ if (!Cookie::HasAuthCookie()) {
     header("Location: authenticate.php");
     exit();
 }
+
+// ============================================================
 
 phpinfo();

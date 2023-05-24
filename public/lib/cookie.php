@@ -9,12 +9,12 @@ class Cookie
   private static $DOMAIN = "localhost";
   private static $HASH_SALT = "ziggy";
 
-  // ======================================================
+  // ============================================================
 
   private $cookieLife = null;
   private $timeNow = null;
 
-  // ======================================================
+  // ============================================================
 
   public static function GetInstance()
   {
@@ -25,12 +25,14 @@ class Cookie
     return self::$instance;
   }
 
+  // ============================================================
+
   public static function HasAuthCookie()
   {
     return getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
   }
 
-  // ======================================================
+  // ============================================================
 
   private function destroyCookie($cookieName)
   {
@@ -40,12 +42,16 @@ class Cookie
     }
   }
 
+  // ============================================================
+
   private function buildHash($username, $location)
   {
     if ($username and $location) {
       return md5(sprintf("%s|%s|%s|%s", $username, $location, $this->timeNow, self::$HASH_SALT));
     }
   }
+
+  // ============================================================
 
   private function cookieValue($username, $location, $loginHash)
   {
@@ -54,6 +60,8 @@ class Cookie
     }
   }
 
+  // ============================================================
+
   private function getAndDestroyCookie($cookieName)
   {
     $cookieValue = getCookieValue($cookieName);
@@ -61,7 +69,7 @@ class Cookie
     return $cookieValue;
   }
 
-  // ======================================================
+  // ============================================================
 
   public function saveAuthCookie($username, $loc = null)
   {
@@ -76,16 +84,21 @@ class Cookie
     setcookie(self::$AUTH_COOKIE_NAME, $cookieValue, $this->cookieLife, '/', self::$DOMAIN);
   }
 
+  // ============================================================
+
   public function saveHttpRefCookie($url)
   {
     setcookie(self::$HTTP_REF_COOKIE_NAME, $url);
   }
+
+  // ============================================================
 
   public function readOnceHttpRefCookie()
   {
     return $this->getAndDestroyCookie(self::$HTTP_REF_COOKIE_NAME);
   }
 
+  // ============================================================
 
   private function __construct()
   {

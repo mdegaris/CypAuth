@@ -2,19 +2,25 @@
 
 require_once($PATH->absPath("/lib/forms_helper.php"));
 
+// ============================================================
+
 class Password
 {
-
     private static $SET_PASSWORD_PLSQL = <<<SQL
-    SELECT cyp_lib.authenticate.set_local_password(:account_uid, :encrypted_password)
-    FROM DUAL
+    BEGIN
+        cyp_lib.authenticate.set_Local_Password(:account_uid, :encrypted_password);
+    END
 SQL;
+
+    // ============================================================
 
     private static $HASHING_ALGORITHM = 'sha512';
     private static $STRENGTH_REGEX = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*-,.]).{8,}$/';
     private static $HTML_ERROR_NOT_POPULATE = "Populate both password fields";
     private static $HTML_ERROR_NO_MATCH = "Password fields don't match";
     private static $HTML_ERROR_WEAK = "Password is too weak";
+
+    // ============================================================
 
     private static $HTML_ERROR_WEAK_HELP = <<<HTML
     <div>
@@ -28,6 +34,7 @@ SQL;
     </ul>
 HTML;
 
+    // ============================================================
 
     public static function HashedPassword($password)
     {
@@ -38,10 +45,13 @@ HTML;
         return null;
     }
 
+    // ============================================================
 
     public $user;
     public $newPassword;
     public $confirmPassword;
+
+    // ============================================================
 
     private function isPopulatedCheck()
     {
@@ -58,6 +68,8 @@ HTML;
         return (preg_match(Password::$STRENGTH_REGEX, $this->newPassword) == false);
     }
 
+    // ============================================================
+
     public function feedbackError()
     {
         if (!$this->isPopulatedCheck()) {
@@ -73,6 +85,8 @@ HTML;
         }
     }
 
+    // ============================================================
+
     public function feedbackHelp()
     {
         if (
@@ -84,6 +98,7 @@ HTML;
         }
     }
 
+    // ============================================================
 
     public function setNewPasswordInDB()
     {
@@ -96,6 +111,8 @@ HTML;
             )
         );
     }
+
+    // ============================================================
 
     function __construct($usrObj, $newPwd, $confirmPwd)
     {

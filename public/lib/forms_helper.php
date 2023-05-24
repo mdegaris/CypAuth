@@ -15,7 +15,6 @@ class FormHelper
     const SUBMIT_USER = '_sub_usr';
     const SUBMIT_PASSWORD_RESET = '_sub_rpw';
 
-
     static function Trimmer($v)
     {
         return trim($v . "");
@@ -29,6 +28,7 @@ function _getParam($scopeMap, $name)
     return isset($scopeMap[$name]) ? $scopeMap[$name] : null;
 }
 
+// ============================================================
 
 function getRequestParam($name)
 {

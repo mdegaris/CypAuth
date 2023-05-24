@@ -1,33 +1,10 @@
 <?php
-#
-#**********************************************************************
-#  Component: database.php
-#
-#  Copyright (c) Cyprotex 2007
-
-#--------------------------------------------
-#  Modification History
-#
-# --------------------------------------------
-#  Description: Various database functions sed by other Cloe Screen PHP pages
-#
-#
-#**********************************************************************
-# Edit History
-#
-# MDG 24-Mar-2007 CR3159 : Added maintenance box.
-#                          Also added getLastDatabaseErrorMessage function
-#
-#**********************************************************************
-# $Id: database.php,v 1.9 2007/03/26 15:31:48 mdegaris Exp $
-#**********************************************************************
-
 
 $dbConnected = false;
 
 
-
-function dbConnect(&$db_credentials = null) {
+function dbConnect(&$db_credentials = null)
+{
 	global $db_user, $db_pass, $db_instance, $dbHandle, $dbConnected;
 
 	if ($db_credentials) {
@@ -44,13 +21,14 @@ function dbConnect(&$db_credentials = null) {
 	$dbConnected = true;
 }
 
-function &dbQuery($query, $bind_vars = null, $db_credentials = null) {
+function &dbQuery($query, $bind_vars = null, $db_credentials = null)
+{
 	global $dbHandle, $dbConnected;
 
-	  // If not connected then use default connection
-	  if (!$dbConnected) {
+	// If not connected then use default connection
+	if (!$dbConnected) {
 		dbConnect($db_credentials);
-	  }
+	}
 
 	$result = array();
 
@@ -75,12 +53,13 @@ function &dbQuery($query, $bind_vars = null, $db_credentials = null) {
 
 
 
-function dbUpdate($query, $bind_vars = null) {
+function dbUpdate($query, $bind_vars = null)
+{
 	global $dbHandle, $dbConnected;
 
 	// If not connected then use default connection
 	if (!$dbConnected) {
-	dbConnect();
+		dbConnect();
 	}
 
 	$result = array();
@@ -103,7 +82,8 @@ function dbUpdate($query, $bind_vars = null) {
 }
 
 // MDG 11-Jan-2007 : Added possible bind variables parameter
-function dbExecute($query, &$bind_vars = null) {
+function dbExecute($query, &$bind_vars = null)
+{
 	global $dbHandle, $dbConnected;
 
 	if (!$dbConnected) {
@@ -129,29 +109,29 @@ function dbExecute($query, &$bind_vars = null) {
 //                          of the last database error that occurred.
 function getLastDatabaseErrorMessage()
 {
-  global $dbHandle, $dbConnected;
+	global $dbHandle, $dbConnected;
 
-  if ($dbConnected) {
-    $error = oci_error($dbHandle);
-    if ($error) {
-      return $error['message'];
-    }
-  }
+	if ($dbConnected) {
+		$error = oci_error($dbHandle);
+		if ($error) {
+			return $error['message'];
+		}
+	}
 }
 
 
-function dbRollback() {
+function dbRollback()
+{
 	global $dbHandle, $dbConnected;
 	if ($dbConnected) {
 		oci_rollback($dbHandle);
 	}
 }
 
-function dbCommit() {
-  global $dbHandle, $dbConnected;
-  if ($dbConnected) {
-    oci_commit($dbHandle);
-  }
+function dbCommit()
+{
+	global $dbHandle, $dbConnected;
+	if ($dbConnected) {
+		oci_commit($dbHandle);
+	}
 }
-
-?>

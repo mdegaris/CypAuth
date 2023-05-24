@@ -1,7 +1,7 @@
 <?php
 
 // Top level setup
-require_once("lib/path_finder.php");
+require_once("lib/common.php");
 
 // ============================================================
 

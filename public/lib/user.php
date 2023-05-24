@@ -1,7 +1,9 @@
 <?php
 
-// require("database.php");
+require_once($PATH->absPath("/lib/database.php"));
 require_once($PATH->absPath("/lib/password.php"));
+
+// ============================================================
 
 class User
 {
@@ -11,13 +13,15 @@ class User
     WHERE cy_user.account_uid = :username
 SQL;
 
+    // ============================================================
 
     private static $HTML_ERROR_EMPTY = "Please enter a username";
-    private static $HTML_ERROR_LOGIN_EMPTY = "Missing username or password";
     private static $HTML_ERROR_ACC_DISABLED = "This account has been disabled";
     private static $HTML_ERROR_NOT_LOCAL = "This account is not locally authenticated";
     private static $HTML_ERROR_NOT_RESET = "This account is not flagged for resetting";
     private static $HTML_ERROR_USER_NOT_FOUND = "User could not be found";
+
+    // ============================================================
 
     private static $HTML_ERROR_USER_FIND_HELP = <<<HTML
     <div>
@@ -33,7 +37,6 @@ SQL;
 HTML;
 
 
-
     public $username;
     public $encryptedSavedPassword;
     public $locallyAuthenticated;
@@ -44,34 +47,35 @@ HTML;
 
     public static function createFromDatabase($username)
     {
-        // $row = dbQuery(User::$USER_CREDS_SQL, array("username" => $username));
+        $row = dbQuery(User::$USER_CREDS_SQL, array("username" => $username));
 
-        // if ($row) {
-        //     return new User(
-        //         $row['ACCOUNT_UID'],
-        //         $row['ENCRYPTED_LOCAL_PASSOWRD'],
-        //         $row['PASSWORD_RESET'],
-        //         $row['LOCAL_PASSWORD'],
-        //         $row['ACCOUNT_ENABLED']
-        //     );
-        // }
-
-        if ($username == "mdegaris") {
+        if ($row) {
             return new User(
-                $username,
-                Password::HashedPassword("test123"),
-                "Y",
-                // reset
-                "Y",
-                // local
-                "Y"
-                // enabled
+                $row['ACCOUNT_UID'],
+                $row['ENCRYPTED_LOCAL_PASSOWRD'],
+                $row['PASSWORD_RESET'],
+                $row['LOCAL_PASSWORD'],
+                $row['ACCOUNT_ENABLED']
             );
-        } else {
-            return new User($username);
         }
 
+        // if ($username == "mdegaris") {
+        //     return new User(
+        //         $username,
+        //         Password::HashedPassword("test123"),
+        //         "Y",
+        //         // reset
+        //         "Y",
+        //         // local
+        //         "Y"
+        //         // enabled
+        //     );
+        // } else {
+        //     return new User($username);
+        // }
     }
+
+    // ============================================================
 
     public function feedbackError($login = false)
     {
@@ -95,6 +99,8 @@ HTML;
             return User::$HTML_ERROR_NOT_RESET;
         }
     }
+
+    // ============================================================
 
     public function feedbackHelp()
     {

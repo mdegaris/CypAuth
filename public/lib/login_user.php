@@ -7,11 +7,13 @@ class LoginUser
 {
     private static $HTML_ERROR_NOT_POPULATED = "Missing username or password";
 
+    // ============================================================
 
     private $encryptedLoginPassword;
     public $user;
     public $isPopulated;
 
+    // ============================================================
 
     public function feedbackError()
     {
@@ -24,10 +26,14 @@ class LoginUser
         }
     }
 
+    // ============================================================
+
     public function feedbackHelp()
     {
         return $this->user->feedbackHelp();
     }
+
+    // ============================================================
 
     public function authenticate()
     {
@@ -37,6 +43,8 @@ class LoginUser
 
         return false;
     }
+
+    // ============================================================
 
     public function __construct($usr, $pwd)
     {
