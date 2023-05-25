@@ -4,16 +4,16 @@
 
 class FormHelper
 {
-    const USERNAME_LOGIN = "_lgn_usr";
-    const PASSWORD_LOGIN = "_lgn_pwd";
+    const USERNAME_LOGIN = "user_login";
+    const PASSWORD_LOGIN = "password_login";
 
-    const USERNAME_RESET = "_rst_usr";
-    const NEW_PASSWORD_RESET = "_rst_npwd";
-    const CONFIRM_PASSWORD_RESET = "_rst_cpwd";
+    const USERNAME_RESET = "user_reset";
+    const NEW_PASSWORD_RESET = "new_password_reset";
+    const CONFIRM_PASSWORD_RESET = "confirm_password_reset";
 
-    const SUBMIT_LOGIN_AUTH = '_sub_lgn';
-    const SUBMIT_USER = '_sub_usr';
-    const SUBMIT_PASSWORD_RESET = '_sub_rpw';
+    const SUBMIT_LOGIN_AUTH = 'submit_login';
+    const SUBMIT_USER = 'submit_user';
+    const SUBMIT_PASSWORD_RESET = 'submit_reset';
 
     private static function getParam($scopeMap, $name)
     {

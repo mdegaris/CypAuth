@@ -60,9 +60,6 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
               &nbsp;(<a href="/data/HowToUseStudyCoordinator.pdf">help doc</a>)
             </li>
             <li>
-              <a href="http://applive.cyprotex.com/php_apps/service_definitions/index.php">Service Definitions</a>
-            </li>
-            <li>
               <a href="http://applive.cyprotex.com:8008/study_management">Study Management</a>
             </li>
             <li>
@@ -85,7 +82,7 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
         <div class="section-content">
           <ul>
             <li>
-              <a href="<?php echo (getenv('live_labsys_url')) ?>">Labsys Login</a>
+              <a href="http://applive.cyprotex.com:8080/labsys">Labsys</a>
             </li>
             <li>
               <a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=109:1">Decertification Centre</a>
