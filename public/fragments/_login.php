@@ -6,7 +6,7 @@ require_once($_PATH->absPath("/lib/login_user.php"));
 require_once($_PATH->absPath("/lib/cookie.php"));
 
 
-if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
+if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
 
     $username = FormHelper::getPostParam(FormHelper::USERNAME_LOGIN);
     $password = FormHelper::getPostParam(FormHelper::PASSWORD_LOGIN);
@@ -32,7 +32,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
 }
 ?>
 
-<?php if (!empty($feedbackErr)) : ?>
+<?php if (!empty($feedbackErr)): ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -40,17 +40,28 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
 
 <form method="post">
     <div class="field-container">
-        <input type="text" name="<?= FormHelper::USERNAME_LOGIN ?>" placeholder="Username" />
-        <input type="password" name="<?= FormHelper::PASSWORD_LOGIN ?>" placeholder="Password" />
+        <input autocapitalize="off"
+               autocomplete="username"
+               type="text"
+               name="<?= FormHelper::USERNAME_LOGIN ?>"
+               placeholder="Username" />
+
+        <input autocapitalize="off"
+               autocomplete="password"
+               type="password"
+               name="<?= FormHelper::PASSWORD_LOGIN ?>"
+               placeholder="Password" />
     </div>
+
     <div class="button-container">
-        <button>LOGIN</button>
+        <button type="submit"
+                name="<?= FormHelper::SUBMIT_LOGIN ?>"">LOGIN</button>
     </div>
-    <input type="hidden" name="<?= FormHelper::SUBMIT_LOGIN_AUTH ?>" />
 </form>
 
-<?php if (!empty($feedbackHelp)) : ?>
-    <div class="feedback-extra">
-        <?= $feedbackHelp ?>
-    </div>
-<?php endif; ?>
+<?php if (!empty($feedbackHelp)): ?>
+    <div class="
+                    feedback-extra">
+                <?= $feedbackHelp ?>
+        </div>
+    <?php endif; ?>

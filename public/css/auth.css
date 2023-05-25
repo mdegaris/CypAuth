@@ -193,3 +193,7 @@ a:hover {
 .orange {
   color: rgb(209, 58, 3);
 }
+
+.invisbible {
+  display: none;
+}

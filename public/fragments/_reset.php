@@ -11,7 +11,7 @@ $includeFrag = Fragments::GetInstance()->username;
 
 // ============================================================
 
-if (FormHelper::isParamPresent(FormHelper::SUBMIT_USER)) {
+if (FormHelper::isParamPresent(FormHelper::SUBMIT_USERNAME_RESET)) {
 
     $username = FormHelper::getPostParam(FormHelper::USERNAME_RESET);
     $userObj = User::createFromDatabase($username);
@@ -45,7 +45,8 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
         header("Location: $referrer_url");
         exit();
     } else {
-        $includeFrag = Fragments::GetInstance()->new_password;;
+        $includeFrag = Fragments::GetInstance()->new_password;
+        ;
     }
 
     // ============================================================
@@ -53,7 +54,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 
 ?>
 
-<?php if (!empty($feedbackErr)) : ?>
+<?php if (!empty($feedbackErr)): ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -63,7 +64,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 require($includeFrag);
 ?>
 
-<?php if (!empty($feedbackHelp)) : ?>
+<?php if (!empty($feedbackHelp)): ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>
