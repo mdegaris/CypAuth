@@ -47,10 +47,8 @@ form {
 input {
   border: solid 1px var(--clr-secondary-2);
   background-color: var(--clr-secondary-1);
-  color: 111111;
   padding: 0.8rem;
   font-size: 1.8rem;
-  min-width: 30rem;
   margin: 2rem 0;
 }
 
@@ -73,7 +71,6 @@ button {
   height: 4rem;
   background-color: var(--clr-primary-1);
   margin: 2rem 0;
-  min-width: 30rem;
 }
 
 button:hover {
@@ -93,7 +90,15 @@ button:active {
 }
 
 li {
-  list-style-position:inside;
+  list-style-position: inside;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .main-container {
@@ -102,21 +107,31 @@ li {
   margin-top: 10rem;
   padding-bottom: 1.2rem;
   background-color: var(--clr-primary-2);
-  min-width: 40rem;
-  width: 50rem;
+  max-width: 50rem;
   box-shadow: -2px 2px 5px 1px rgba(0, 0, 0, 0.3);
 }
 
 .form-container {
   padding: 0.5rem;
   margin: 0 auto;
-  max-width: min-content;
+  max-width: 32rem;
+}
+
+.form-footer {
+  min-width: 100%;
+  height: 4rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .field-container {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  min-width: 100%;
 }
 
 .title-text {
@@ -130,6 +145,7 @@ li {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  min-width: 100%;
 }
 
 .title-container {
@@ -137,6 +153,7 @@ li {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 0.7rem;
 }
 
 .title-logo {
@@ -148,19 +165,18 @@ li {
   background-color: var(--clr-hightlight-error);
   margin: 0 auto;
   padding: 0.55rem;
-  font-size: 1.35rem;  
+  font-size: 1.35rem;
   text-align: center;
+  min-width: 100%;
 }
 
 .feedback-extra {
+  background-color: var(--clr-hightlight-1);
   margin: 0 auto;
   padding: 0.6rem;
-  width: fit-content;
   font-size: 1.35rem;
-  /* text-align: justify; */
-  background-color: var(--clr-hightlight-1);
+  min-width: 100%;
 }
-
 
 .failure {
   color: var(--clr-failure);
@@ -171,9 +187,9 @@ li {
 }
 
 .blue {
-  color:rgb(0, 127, 166);
+  color: rgb(0, 127, 166);
 }
 
 .orange {
-  color:rgb(209, 58, 3);
+  color: rgb(209, 58, 3);
 }

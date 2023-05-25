@@ -22,17 +22,17 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
             if ($url_referrer) {
                 header("Location: $url_referrer");
             } else {
-                header("Location: /");
+                header("Location: /labsys_portal");
             }
             exit();
         } else {
-            $feedbackErr = Fragments::GetInstance()->login;
+            $feedbackErr = LoginUser::$HTML_ERROR_FAILED_AUTH;
         }
     }
 }
 ?>
 
-<?php if (!empty($feedbackErr)): ?>
+<?php if (!empty($feedbackErr)) : ?>
     <div class="feedback-primary">
         <?= $feedbackErr ?>
     </div>
@@ -49,7 +49,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN_AUTH)) {
     <input type="hidden" name="<?= FormHelper::SUBMIT_LOGIN_AUTH ?>" />
 </form>
 
-<?php if (!empty($feedbackHelp)): ?>
+<?php if (!empty($feedbackHelp)) : ?>
     <div class="feedback-extra">
         <?= $feedbackHelp ?>
     </div>

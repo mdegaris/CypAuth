@@ -15,11 +15,11 @@ SQL;
 
     // ============================================================
 
-    private static $HTML_ERROR_EMPTY = "Please enter a username";
-    private static $HTML_ERROR_ACC_DISABLED = "This account has been disabled";
-    private static $HTML_ERROR_NOT_LOCAL = "This account is not locally authenticated";
-    private static $HTML_ERROR_NOT_RESET = "This account is not flagged for resetting";
-    private static $HTML_ERROR_USER_NOT_FOUND = "User could not be found";
+    public static $HTML_ERROR_EMPTY = "Please enter a username";
+    public static $HTML_ERROR_ACC_DISABLED = "This account has been disabled";
+    public static $HTML_ERROR_NOT_LOCAL = "Account not locally authenticated";
+    public static $HTML_ERROR_NOT_RESET = "Account not flagged for resetting";
+    public static $HTML_ERROR_USER_NOT_FOUND = "User could not be found";
 
     // ============================================================
 
@@ -59,27 +59,14 @@ HTML;
                 $row['LOCALLY_AUTHENTICATED'],
                 $row['ACCOUNT_ENABLED']
             );
+        } else {
+            return new User($username);
         }
-
-        // if ($username == "mdegaris") {
-        //     return new User(
-        //         $username,
-        //         Password::HashedPassword("test123"),
-        //         "Y",
-        //         // reset
-        //         "Y",
-        //         // local
-        //         "Y"
-        //         // enabled
-        //     );
-        // } else {
-        //     return new User($username);
-        // }
     }
 
     // ============================================================
 
-    public function feedbackError($login = false)
+    public function feedbackError()
     {
         if ($this->isUserEmpty) {
             return User::$HTML_ERROR_EMPTY;
@@ -117,7 +104,7 @@ HTML;
     {
         $this->username = FormHelper::Trimmer($usr);
 
-        $this->isUserEmpty = $this->username ? false : true;
+        $this->isUserEmpty = empty($this->username) ? true : false;
         $this->exists = ($resetPwd or $localPwd or $accEnabled);
 
         if ($this->exists) {

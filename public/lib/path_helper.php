@@ -33,24 +33,31 @@ class Path
     // ============================================================
 
     // Get the current URL path
-    public function urlPath($stripExtra = false)
+    public function currentUrl($remvoeQuery = false, $removeScrpit = false)
     {
-        $url = (
-            sprintf(
-                "%s://%s%s",
-                (empty($_SERVER['HTTPS']) ? 'http' : 'https'),
-                $_SERVER['HTTP_HOST'],
-                $_SERVER['REQUEST_URI']
-            )
+        $url = (sprintf(
+            "%s://%s%s",
+            (empty($_SERVER['HTTPS']) ? 'http' : 'https'),
+            $_SERVER['HTTP_HOST'],
+            $_SERVER['REQUEST_URI']
+        )
         );
 
-        if ($stripExtra) {
-            $pos = strripos($url, $_SERVER['PHP_SELF']);
-            $url_stripped = sprintf("%s%s", substr($url, 0, $pos), $_SERVER['PHP_SELF']);
-            return $url_stripped;
-        } else {
-            return $url;
+        if ($remvoeQuery or $removeScrpit) {
+
+            $parsedUrl = parse_url($url);
+
+            if ($remvoeQuery) {
+                $baseFile = basename($_SERVER['SCRIPT_NAME']);
+                $url = str_replace('/' . $baseFile, '', $url);
+            }
+
+            if ($removeScrpit) {
+                $url = str_replace('?' . $parsedUrl['query'], '', $url);
+            }
         }
+
+        return $url;
     }
 
     // ============================================================

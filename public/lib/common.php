@@ -17,7 +17,6 @@ $db_creds_file_str = sprintf(
 );
 
 $db_creds_file = realpath($db_creds_file_str);
-
 if (!$db_creds_file) {
     throw new Exception("Could not find database credentials file: $db_creds_file_str");
 }
@@ -26,9 +25,8 @@ if (!$db_creds_file) {
 $db_credentials = parse_ini_file($db_creds_file);
 define("DB_USER", $db_credentials['CS_DB_RO_USER']);
 define("DB_PASS", $db_credentials['CS_DB_RO_PASSWORD']);
-define("DB_INSTANCE", $db_credentials['CS_DB_RO_USER']);
-define("COOKIE_DOMAIN", $db_credentials['COOKIE_DOMAIN']);
-
+define("DB_INSTANCE", $db_credentials['CS_DB_INSTANCE']);
+define("COOKIE_DOMAIN", $app_configs['COOKIE_DOMAIN']);
 
 
 $gLogFile = "/home/cloe_screen/log/labsys_portal.log";

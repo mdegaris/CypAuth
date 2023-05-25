@@ -5,11 +5,14 @@ require_once($_PATH->absPath("/lib/password.php"));
 
 class LoginUser
 {
-    private static $HTML_ERROR_NOT_POPULATED = "Missing username or password";
+    public static $HTML_ERROR_NOT_POPULATED = "Missing username or password";
+    public static $HTML_ERROR_FAILED_AUTH = "Invalid username or password";
 
     // ============================================================
 
     private $encryptedLoginPassword;
+    private $failedAuth;
+
     public $user;
     public $isPopulated;
 
@@ -17,8 +20,12 @@ class LoginUser
 
     public function feedbackError()
     {
-        if (!$this->user->isUserEmpty) {
-            return $this->user->feedbackError();
+        if (!$this->user->accountEnabled) {
+            return User::$HTML_ERROR_ACC_DISABLED;
+        }
+
+        if (!$this->user->locallyAuthenticated) {
+            return User::$HTML_ERROR_NOT_LOCAL;
         }
 
         if (!$this->isPopulated) {
@@ -30,7 +37,7 @@ class LoginUser
 
     public function feedbackHelp()
     {
-        return $this->user->feedbackHelp();
+        return null;
     }
 
     // ============================================================
@@ -52,5 +59,6 @@ class LoginUser
         $this->encryptedLoginPassword = Password::HashedPassword($pwd);
 
         $this->isPopulated = ($this->user->isUserEmpty or $this->encryptedLoginPassword == null) ? false : true;
+        $this->failedAuth = false;
     }
 }

@@ -48,7 +48,7 @@ class FormHelper
 
     public static function Trimmer($v)
     {
-        return trim($v . "");
+        return empty($v) ? $v : trim($v . "");
     }
 }
 
