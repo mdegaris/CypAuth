@@ -21,12 +21,14 @@ class LoginUser
 
     public function feedbackError()
     {
-        if (!$this->user->accountEnabled) {
-            return User::$HTML_ERROR_ACC_DISABLED;
-        }
+        if ($this->user->exists) {
+            if (!$this->user->accountEnabled) {
+                return User::$HTML_ERROR_ACC_DISABLED;
+            }
 
-        if (!$this->user->locallyAuthenticated) {
-            return User::$HTML_ERROR_NOT_LOCAL;
+            if (!$this->user->locallyAuthenticated) {
+                return User::$HTML_ERROR_NOT_LOCAL;
+            }
         }
 
         if (!$this->isPopulated) {
