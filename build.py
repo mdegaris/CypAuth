@@ -7,7 +7,7 @@ def zipdir(path, ziph):
     # ziph is zipfile handle
     for root, dirs, files in os.walk(path):
         for file in files:
-            print file
+            print(file)
             ziph.write(os.path.join(root, file))
 
 dist_zip = "labsys_portal.zip"

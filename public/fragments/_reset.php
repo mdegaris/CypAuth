@@ -38,15 +38,11 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
     if (!$feedbackErr) {
         $passwordObj->setNewPasswordInDB();
         Cookie::GetInstance()->saveAuthCookie($userObj->username);
-
-        logMessage("");
-
         $referrer_url = Cookie::GetInstance()->readOnceHttpRefCookie();
         header("Location: $referrer_url");
         exit();
     } else {
-        $includeFrag = Fragments::GetInstance()->new_password;
-        ;
+        $includeFrag = Fragments::GetInstance()->new_password;;
     }
 
     // ============================================================
@@ -54,20 +50,20 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 
 ?>
 
-<?php if (!empty($feedbackErr)): ?>
-    <div class="feedback-primary">
-        <?= $feedbackErr ?>
-    </div>
+<?php if (!empty($feedbackErr)) : ?>
+<div class="feedback-primary">
+    <?= $feedbackErr ?>
+</div>
 <?php endif; ?>
 
 <?php
 require($includeFrag);
 ?>
 
-<?php if (!empty($feedbackHelp)): ?>
-    <div class="feedback-extra">
-        <?= $feedbackHelp ?>
-    </div>
+<?php if (!empty($feedbackHelp)) : ?>
+<div class="feedback-extra">
+    <?= $feedbackHelp ?>
+</div>
 <?php endif; ?>
 
 <div class="form-footer"><a href="auth.php">Login</a></div>

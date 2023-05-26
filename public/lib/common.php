@@ -2,6 +2,7 @@
 
 require_once("path_helper.php");
 
+// ============================================================
 
 // Setup Globals
 
@@ -28,6 +29,7 @@ define("DB_PASS", $db_credentials['CS_DB_RO_PASSWORD']);
 define("DB_INSTANCE", $db_credentials['CS_DB_INSTANCE']);
 define("COOKIE_DOMAIN", $app_configs['COOKIE_DOMAIN']);
 
+// ============================================================
 
 $gLogFile = "/home/cloe_screen/log/labsys_portal.log";
 function logMessage($message, $logLevel = LOG_INFO)

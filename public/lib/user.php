@@ -9,7 +9,7 @@ class User
 {
     private static $USER_CREDS_SQL = <<<SQL
     SELECT account_uid, encrypted_local_password, locally_authenticated, password_reset, account_enabled
-    FROM mdegaris.cy_user
+    FROM cyprotex.cy_user
     WHERE cy_user.account_uid = :username
 SQL;
 

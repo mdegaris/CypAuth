@@ -1,7 +1,5 @@
 <?php
 
-// ============================================================
-
 class FormHelper
 {
     // Login inputs
@@ -16,11 +14,14 @@ class FormHelper
     const SUBMIT_USERNAME_RESET = 'username=submit';
     const SUBMIT_PASSWORD_RESET = 'reset-submit';
 
+    // ============================================================
 
     private static function getParam($scopeMap, $name)
     {
         return isset($scopeMap[$name]) ? $scopeMap[$name] : null;
     }
+
+    // ============================================================
 
     public static function getRequestParam($name)
     {
@@ -37,16 +38,12 @@ class FormHelper
         return self::getParam($_GET, $name);
     }
 
-    public static function getCookieValue($name)
-    {
-        return self::getParam($_COOKIE, $name);
-    }
-
     public static function isParamPresent($name)
     {
         return isset($_REQUEST[$name]);
     }
 
+    // ============================================================
 
     public static function Trimmer($v)
     {

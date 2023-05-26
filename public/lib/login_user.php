@@ -11,7 +11,8 @@ class LoginUser
     // ============================================================
 
     private $encryptedLoginPassword;
-    private $failedAuth;
+
+    // ============================================================
 
     public $user;
     public $isPopulated;
@@ -57,8 +58,6 @@ class LoginUser
     {
         $this->user = User::createFromDatabase($usr);
         $this->encryptedLoginPassword = Password::HashedPassword($pwd);
-
         $this->isPopulated = ($this->user->isUserEmpty or $this->encryptedLoginPassword == null) ? false : true;
-        $this->failedAuth = false;
     }
 }

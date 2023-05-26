@@ -37,7 +37,7 @@ class Path
     {
         $url = (sprintf(
             "%s://%s%s",
-            (empty($_SERVER['HTTPS']) ? 'http' : 'https'),
+            empty($_SERVER['HTTPS']) ? 'http' : 'https',
             $_SERVER['HTTP_HOST'],
             $_SERVER['REQUEST_URI']
         )

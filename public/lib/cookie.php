@@ -2,6 +2,7 @@
 
 class Cookie
 {
+  // Singleton Setup
   private static $instance = null;
   public static function GetInstance()
   {
@@ -22,9 +23,16 @@ class Cookie
 
   // ============================================================
 
+  public static function getCookieValue($name)
+  {
+    return !empty($_COOKIE[$name]) ? $_COOKIE[$name] : null;
+  }
+
+  // ============================================================
+
   public static function HasAuthCookie()
   {
-    return FormHelper::getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
+    return self::getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
   }
 
   // ============================================================
@@ -64,7 +72,7 @@ class Cookie
 
   private function getAndDestroyCookie($cookieName)
   {
-    $cookieValue = FormHelper::getCookieValue($cookieName);
+    $cookieValue = self::getCookieValue($cookieName);
     $this->destroyCookie($cookieName);
     return $cookieValue;
   }

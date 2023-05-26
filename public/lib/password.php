@@ -8,7 +8,7 @@ class Password
 {
     private static $SET_PASSWORD_PLSQL = <<<SQL
     BEGIN
-        mdegaris.authenticate.set_Local_Password(:account_uid, :encrypted_password);
+        labsys_app.user_management_pkg.change_encrypted_password(:account_uid, :encrypted_password, :modified_by_uid);
     END;
 SQL;
 
@@ -22,7 +22,7 @@ SQL;
 
     // ============================================================
 
-    private static $HTML_ERROR_WEAK_HELP = <<<HTML
+    private static $HTML_PASSWORD_REQ = <<<HTML
     <div>
         Passwords musts be at least:
     </div>
@@ -89,13 +89,7 @@ HTML;
 
     public function feedbackHelp()
     {
-        if (
-            $this->isPopulatedCheck() and
-            $this->areMatchingCheck() and
-            $this->isWeak()
-        ) {
-            return Password::$HTML_ERROR_WEAK_HELP;
-        }
+        return Password::$HTML_PASSWORD_REQ;
     }
 
     // ============================================================
@@ -104,7 +98,8 @@ HTML;
     {
         $binds = array(
             "account_uid" => $this->user->username,
-            "encrypted_password" => Password::HashedPassword($this->newPassword)
+            "encrypted_password" => Password::HashedPassword($this->newPassword),
+            "modified_by_uid" => $this->user->username
         );
 
         $error = dbExecute(Password::$SET_PASSWORD_PLSQL, $binds);

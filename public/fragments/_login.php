@@ -32,36 +32,42 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
 }
 ?>
 
-<?php if (!empty($feedbackErr)): ?>
-    <div class="feedback-primary">
-        <?= $feedbackErr ?>
-    </div>
+<?php if (!empty($feedbackErr)) : ?>
+<div class="feedback-primary">
+    <?= $feedbackErr ?>
+</div>
 <?php endif; ?>
 
 <form method="post">
     <div class="field-container">
-        <input autocapitalize="off"
-               autocomplete="username"
-               type="text"
-               name="<?= FormHelper::USERNAME_LOGIN ?>"
-               placeholder="Username" />
+        <input
+            autocapitalize="off"
+            autocomplete="username"
+            type="text"
+            name="<?= FormHelper::USERNAME_LOGIN ?>"
+            placeholder="Username"
+        />
 
-        <input autocapitalize="off"
-               autocomplete="password"
-               type="password"
-               name="<?= FormHelper::PASSWORD_LOGIN ?>"
-               placeholder="Password" />
+        <input
+            autocapitalize="off"
+            autocomplete="password"
+            type="password"
+            name="<?= FormHelper::PASSWORD_LOGIN ?>"
+            placeholder="Password"
+        />
     </div>
 
     <div class="button-container">
-        <button type="submit"
-                name="<?= FormHelper::SUBMIT_LOGIN ?>"">LOGIN</button>
+        <button
+            type="submit"
+            name="<?= FormHelper::SUBMIT_LOGIN ?>"">LOGIN</button>
     </div>
 </form>
 
-<?php if (!empty($feedbackHelp)): ?>
+<?php if (!empty($feedbackHelp)) : ?>
     <div class="
-                    feedback-extra">
-                <?= $feedbackHelp ?>
-        </div>
+            feedback-extra"
+        >
+            <?= $feedbackHelp ?>
+    </div>
     <?php endif; ?>
