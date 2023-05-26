@@ -22,7 +22,7 @@ SQL;
 
     // ============================================================
 
-    private static $HTML_PASSWORD_REQ = <<<HTML
+    public static $HTML_PASSWORD_REQ = <<<HTML
     <div>
         Passwords musts be at least:
     </div>
@@ -39,7 +39,7 @@ HTML;
     public static function HashedPassword($password)
     {
         if ($password) {
-            return hash(Password::$HASHING_ALGORITHM, $password);
+            return hash(self::$HASHING_ALGORITHM, $password);
         }
 
         return null;
@@ -65,7 +65,7 @@ HTML;
 
     private function isWeak()
     {
-        return (preg_match(Password::$STRENGTH_REGEX, $this->newPassword) == false);
+        return (preg_match(self::$STRENGTH_REGEX, $this->newPassword) == false);
     }
 
     // ============================================================
@@ -73,23 +73,16 @@ HTML;
     public function feedbackError()
     {
         if (!$this->isPopulatedCheck()) {
-            return Password::$HTML_ERROR_NOT_POPULATE;
+            return self::$HTML_ERROR_NOT_POPULATE;
         }
 
         if (!$this->areMatchingCheck()) {
-            return Password::$HTML_ERROR_NO_MATCH;
+            return self::$HTML_ERROR_NO_MATCH;
         }
 
         if ($this->isWeak()) {
-            return Password::$HTML_ERROR_WEAK;
+            return self::$HTML_ERROR_WEAK;
         }
-    }
-
-    // ============================================================
-
-    public function feedbackHelp()
-    {
-        return Password::$HTML_PASSWORD_REQ;
     }
 
     // ============================================================
@@ -98,11 +91,11 @@ HTML;
     {
         $binds = array(
             "account_uid" => $this->user->username,
-            "encrypted_password" => Password::HashedPassword($this->newPassword),
+            "encrypted_password" => self::HashedPassword($this->newPassword),
             "modified_by_uid" => $this->user->username
         );
 
-        $error = dbExecute(Password::$SET_PASSWORD_PLSQL, $binds);
+        $error = dbExecute(self::$SET_PASSWORD_PLSQL, $binds);
 
         if ($error) {
             dbRollback();

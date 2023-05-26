@@ -20,6 +20,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_USERNAME_RESET)) {
 
     if (!$feedbackErr) {
         $includeFrag = Fragments::GetInstance()->new_password;
+        $feedbackHelp = Password::$HTML_PASSWORD_REQ;
     }
 }
 
@@ -33,7 +34,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
     $userObj = User::createFromDatabase($username);
     $passwordObj = new Password($userObj, $newPwd, $confirmPwd);
     $feedbackErr = $passwordObj->feedbackError();
-    $feedbackHelp = $passwordObj->feedbackHelp();
+    $feedbackHelp = Password::$HTML_PASSWORD_REQ;
 
     if (!$feedbackErr) {
         $passwordObj->setNewPasswordInDB();
