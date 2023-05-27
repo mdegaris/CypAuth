@@ -30,7 +30,6 @@ body {
   font-weight: normal;
   font-style: normal;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 1.75rem;
   height: 100%;
 }
 
@@ -109,6 +108,7 @@ a:hover {
 }
 
 .card-content {
+  font-size: 1.7rem;
   padding: 0.5rem;
   color: var(--clr-primary-3);
 }

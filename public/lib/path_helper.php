@@ -2,6 +2,7 @@
 
 class Path
 {
+    // Singleton setup
     public static $instance = null;
 
     public static function GetInstance($docRoot = null)
@@ -16,6 +17,7 @@ class Path
     // ============================================================
 
     private $docRoot;
+    private $appUrlRoot;
 
     // Build the full absolute path from a relative path.
     public function absPath($relPath)
@@ -32,8 +34,24 @@ class Path
 
     // ============================================================
 
+    // Build the full absolute path from a relative path.
+    public function rootUrl()
+    {
+        return $this->appUrlRoot;
+    }
+
+    // ============================================================
+
+    // Build the full absolute path from a relative path.
+    public function resetPasswordForward()
+    {
+        return sprintf('%s?reset=&%s', $this->currentUrl(true), http_build_query($_REQUEST));
+    }
+
+    // ============================================================
+
     // Get the current URL path
-    public function currentUrl($remvoeQuery = false, $removeScrpit = false)
+    public function currentUrl($remvoeQuery = false, $removeScript = false)
     {
         $url = (sprintf(
             "%s://%s%s",
@@ -43,7 +61,7 @@ class Path
         )
         );
 
-        if ($remvoeQuery or $removeScrpit) {
+        if ($remvoeQuery or $removeScript) {
 
             $parsedUrl = parse_url($url);
 
@@ -52,7 +70,7 @@ class Path
                 $url = str_replace('/' . $baseFile, '', $url);
             }
 
-            if ($removeScrpit) {
+            if ($removeScript) {
                 $url = str_replace('?' . $parsedUrl['query'], '', $url);
             }
         }
@@ -69,6 +87,8 @@ class Path
         } else {
             $this->docRoot = $forceDocRoot;
         }
+
+        $this->appUrlRoot = sprintf('/%s', basename($this->docRoot));
     }
 }
 

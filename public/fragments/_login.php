@@ -12,6 +12,12 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
     $password = FormHelper::getPostParam(FormHelper::PASSWORD_LOGIN);
 
     $loginUser = new LoginUser($username, $password);
+
+    if ($loginUser->user->resetPassword) {
+        header("Location: " . $_PATH->resetPasswordForward());
+        exit();
+    }
+
     $feedbackErr = $loginUser->feedbackError();
     $feedbackHelp = $loginUser->feedbackHelp();
 
@@ -20,9 +26,9 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
             Cookie::GetInstance()->saveAuthCookie($loginUser->user->username);
             $url_referrer = Cookie::GetInstance()->readOnceHttpRefCookie();
             if ($url_referrer) {
-                header("Location: $url_referrer");
+                header(sprintf("Location: %s", $url_referrer));
             } else {
-                header("Location: /labsys_portal");
+                header(sprintf("Location: %s", $_PATH->rootUrl()));
             }
             exit();
         } else {
@@ -40,34 +46,28 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
 
 <form method="post">
     <div class="field-container">
-        <input
-            autocapitalize="off"
-            autocomplete="username"
-            type="text"
-            name="<?= FormHelper::USERNAME_LOGIN ?>"
-            placeholder="Username"
-        />
+        <input autocapitalize="off"
+               autocomplete="username"
+               type="text"
+               name="<?= FormHelper::USERNAME_LOGIN ?>"
+               placeholder="Username" />
 
-        <input
-            autocapitalize="off"
-            autocomplete="password"
-            type="password"
-            name="<?= FormHelper::PASSWORD_LOGIN ?>"
-            placeholder="Password"
-        />
+        <input autocapitalize="off"
+               autocomplete="password"
+               type="password"
+               name="<?= FormHelper::PASSWORD_LOGIN ?>"
+               placeholder="Password" />
     </div>
 
     <div class="button-container">
-        <button
-            type="submit"
-            name="<?= FormHelper::SUBMIT_LOGIN ?>"">LOGIN</button>
+        <button type="submit"
+                name="<?= FormHelper::SUBMIT_LOGIN ?>"">LOGIN</button>
     </div>
 </form>
 
 <?php if (!empty($feedbackHelp)) : ?>
     <div class="
-            feedback-extra"
-        >
+                feedback-extra">
             <?= $feedbackHelp ?>
     </div>
     <?php endif; ?>
