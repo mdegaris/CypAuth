@@ -14,7 +14,7 @@ SQL;
 
     // ============================================================
 
-    private static $HASHING_ALGORITHM = 'sha512';
+    private static $HASHING_ALGORITHM = "sha512";
     private static $STRENGTH_REGEX = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/';
     private static $HTML_ERROR_NOT_POPULATE = "Populate both password fields";
     private static $HTML_ERROR_NO_MATCH = "Password fields don't match";
