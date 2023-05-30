@@ -1,6 +1,8 @@
 <?php
 
 require_once($_PATH->absPath("/lib/forms_helper.php"));
+require_once($_PATH->absPath("/lib/sql.php"));
+
 
 // ============================================================
 
@@ -15,7 +17,7 @@ SQL;
     // ============================================================
 
     private static $HASHING_ALGORITHM = 'sha512';
-    private static $STRENGTH_REGEX = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*-,.]).{8,}$/';
+    private static $STRENGTH_REGEX = ' ';
     private static $HTML_ERROR_NOT_POPULATE = "Populate both password fields";
     private static $HTML_ERROR_NO_MATCH = "Password fields don't match";
     private static $HTML_ERROR_WEAK = "Password is too weak";
@@ -30,7 +32,7 @@ SQL;
         <li>8 characters in length</li>
         <li>Contain 1 uppercase letter</li>
         <li>Contain 1 lowercase letter</li>
-        <li>Contain 1 special symbol: !@#$%^&*-,.</li>
+        <li>Contain 1 number</li>
     </ul>
 HTML;
 

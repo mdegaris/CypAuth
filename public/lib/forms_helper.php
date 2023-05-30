@@ -2,6 +2,10 @@
 
 class FormHelper
 {
+    // App flags
+    const SETUP_FLAG = 'setup';
+    const RESET_FLAG = 'reset';
+
     // Login inputs
     const USERNAME_LOGIN = "username-login";
     const PASSWORD_LOGIN = "current-password";

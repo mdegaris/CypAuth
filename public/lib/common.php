@@ -47,3 +47,5 @@ function logMessage($message, $logLevel = LOG_INFO)
     $lm = sprintf("%s : %s - %s%s", $level, $ts, $message, PHP_EOL);
     error_log($lm, 3, $gLogFile);
 }
+
+// ============================================================

@@ -32,23 +32,17 @@ if (doPasswordReset() and !Cookie::HasAuthCookie()) {
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge" />
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0" />
-    <link rel="icon"
-          href="/images/logo-brand.svg"
-          type="image/svg+xml">
-    <link rel="stylesheet"
-          href="css/auth.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logo-brand.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/auth.css" />
 </head>
 
 <body>
     <main>
         <div class="main-container">
             <div class="title-container">
-                <img class="title-logo"
-                     src="images/logo-brand.svg" />
+                <img class="title-logo" src="images/logo-brand.svg" />
                 <div class="title-text">Labsys SSO</div>
             </div>
             <div class="form-container">

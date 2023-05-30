@@ -43,8 +43,11 @@ class Path
     // ============================================================
 
     // Build the full absolute path from a relative path.
-    public function resetPasswordForward()
+    public function resetPasswordForward($formHelper)
     {
+
+
+
         return sprintf('%s?reset=&%s', $this->currentUrl(true), http_build_query($_REQUEST));
     }
 
@@ -54,11 +57,11 @@ class Path
     public function currentUrl($remvoeQuery = false, $removeScript = false)
     {
         $url = (sprintf(
-            "%s://%s%s",
-            empty($_SERVER['HTTPS']) ? 'http' : 'https',
-            $_SERVER['HTTP_HOST'],
-            $_SERVER['REQUEST_URI']
-        )
+                "%s://%s%s",
+                empty($_SERVER['HTTPS']) ? 'http' : 'https',
+                $_SERVER['HTTP_HOST'],
+                $_SERVER['REQUEST_URI']
+            )
         );
 
         if ($remvoeQuery or $removeScript) {

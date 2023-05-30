@@ -12,7 +12,6 @@ $includeFrag = Fragments::GetInstance()->username;
 // ============================================================
 
 if (FormHelper::isParamPresent(FormHelper::SUBMIT_USERNAME_RESET)) {
-
     $username = FormHelper::getPostParam(FormHelper::USERNAME_RESET);
     $userObj = User::createFromDatabase($username);
     $feedbackErr = $userObj->feedbackError();
@@ -52,9 +51,9 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
 ?>
 
 <?php if (!empty($feedbackErr)) : ?>
-<div class="feedback-primary">
-    <?= $feedbackErr ?>
-</div>
+    <div class="feedback-primary">
+        <?= $feedbackErr ?>
+    </div>
 <?php endif; ?>
 
 <?php
@@ -62,9 +61,9 @@ require($includeFrag);
 ?>
 
 <?php if (!empty($feedbackHelp)) : ?>
-<div class="feedback-extra">
-    <?= $feedbackHelp ?>
-</div>
+    <div class="feedback-extra">
+        <?= $feedbackHelp ?>
+    </div>
 <?php endif; ?>
 
 <div class="form-footer"><a href="auth.php">Login</a></div>
