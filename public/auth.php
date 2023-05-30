@@ -20,9 +20,9 @@ function doPasswordReset()
 // If we're (re)setting the password, then start the reset password flow.
 // Else start the login flow.
 if (doPasswordReset() and !Cookie::HasAuthCookie()) {
-    $includeFragment = Fragments::GetInstance()->reset;
+    $includeFragment = Fragments::GetInstance()->resetPage;
 } else {
-    $includeFragment = Fragments::GetInstance()->login;
+    $includeFragment = Fragments::GetInstance()->loginPage;
 }
 ?>
 

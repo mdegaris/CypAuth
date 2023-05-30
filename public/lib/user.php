@@ -1,7 +1,6 @@
 <?php
 
 require_once($_PATH->absPath("/lib/database.php"));
-require_once($_PATH->absPath("/lib/password.php"));
 
 // ============================================================
 

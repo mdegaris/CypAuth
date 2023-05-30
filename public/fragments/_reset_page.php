@@ -7,7 +7,7 @@ require_once($_PATH->absPath("/lib/password.php"));
 require_once($_PATH->absPath("/lib/cookie.php"));
 
 
-$includeFrag = Fragments::GetInstance()->username;
+$includeFrag = Fragments::GetInstance()->usernameForm;
 
 // ============================================================
 
@@ -18,7 +18,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_USERNAME_RESET)) {
     $feedbackHelp = $userObj->feedbackHelp();
 
     if (!$feedbackErr) {
-        $includeFrag = Fragments::GetInstance()->new_password;
+        $includeFrag = Fragments::GetInstance()->newPasswordForm;
         $feedbackHelp = Password::$HTML_PASSWORD_REQ;
     }
 }
@@ -42,7 +42,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
         header("Location: $referrer_url");
         exit();
     } else {
-        $includeFrag = Fragments::GetInstance()->new_password;;
+        $includeFrag = Fragments::GetInstance()->newPasswordForm;
     }
 
     // ============================================================

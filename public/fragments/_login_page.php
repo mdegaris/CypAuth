@@ -68,7 +68,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
     </div>
 <?php endif; ?>
 
-<?php include("fragment/_login_form.php"); ?>
+<?php include(Fragments::GetInstance()->loginForm); ?>
 
 <?php if (!empty($feedbackHelp)) : ?>
     <div class="feedback-extra">

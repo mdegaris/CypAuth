@@ -23,7 +23,7 @@ class Cookie
 
   // ============================================================
 
-  public static function getCookieValue($name)
+  public static function GetCookieValue($name)
   {
     return !empty($_COOKIE[$name]) ? $_COOKIE[$name] : null;
   }
@@ -32,7 +32,7 @@ class Cookie
 
   public static function HasAuthCookie()
   {
-    return self::getCookieValue(self::$AUTH_COOKIE_NAME) !== null;
+    return self::GetCookieValue(self::$AUTH_COOKIE_NAME) !== null;
   }
 
   // ============================================================
@@ -72,7 +72,7 @@ class Cookie
 
   private function getAndDestroyCookie($cookieName)
   {
-    $cookieValue = self::getCookieValue($cookieName);
+    $cookieValue = self::GetCookieValue($cookieName);
     $this->destroyCookie($cookieName);
     return $cookieValue;
   }

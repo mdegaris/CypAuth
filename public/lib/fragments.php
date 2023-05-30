@@ -15,18 +15,20 @@ class Fragments
 
     // ============================================================
 
-    public $username;
-    public $new_password;
-    public $login;
-    public $reset;
+    public $usernameForm;
+    public $newPasswordForm;
+    public $loginPage;
+    public $resetPage;
+    public $loginForm;
 
     public function __construct()
     {
         global $_PATH;
 
-        $this->username = $_PATH->absPath("/fragments/_username.php");
-        $this->new_password = $_PATH->absPath("/fragments/_new_password.php");
-        $this->login = $_PATH->absPath("/fragments/_login.php");
-        $this->reset = $_PATH->absPath("/fragments/_reset.php");
+        $this->usernameForm = $_PATH->absPath("/fragments/_username_form.php");
+        $this->newPasswordForm = $_PATH->absPath("/fragments/_new_password_form.php");
+        $this->loginPage = $_PATH->absPath("/fragments/_login_page.php");
+        $this->loginForm = $_PATH->absPath("/fragments/_login_form.php");
+        $this->resetPage = $_PATH->absPath("/fragments/_reset_page.php");
     }
 }

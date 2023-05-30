@@ -4,37 +4,56 @@ require_once("path_helper.php");
 
 // ============================================================
 
-// Setup Globals
+function setupGlobalDefnitions($config)
+{
 
+    $dbCredsFileStr = sprintf(
+        "%s%s%s",
+        $config['CS_ROOT'],
+        DIRECTORY_SEPARATOR,
+        $config['DB_CREDENTIALS_FILE']
+    );
+
+    $dbCredsFile = realpath($dbCredsFileStr);
+    if (!$dbCredsFile) {
+        throw new Exception("Could not find database credentials file: $dbCredsFileStr");
+    }
+
+    $dbCredentials = parse_ini_file($dbCredsFile);
+    define("CS_ROOT", $config['CS_ROOT']);
+    define("DB_USER", $dbCredentials['CS_DB_RO_USER']);
+    define("DB_PASS", $dbCredentials['CS_DB_RO_PASSWORD']);
+    define("DB_INSTANCE", $dbCredentials['CS_DB_INSTANCE']);
+    define("COOKIE_DOMAIN", $config['COOKIE_DOMAIN']);
+    define('LOG_FILE', sprintf(
+        $config['CS_ROOT'],
+        DIRECTORY_SEPARATOR,
+        $config['LOG_FILE']
+    ));
+}
+
+// ============================================================
+
+// Setup Globals
 $doc_root = substr(__DIR__, 0, stripos(__DIR__, "/lib"));
 $_PATH = Path::GetInstance($doc_root);
 
 // Read configs
-$app_configs = parse_ini_file($_PATH->absPath("/conf/labsys_portal.conf"));
-$db_creds_file_str = sprintf(
-    "%s" . DIRECTORY_SEPARATOR . "%s",
-    $app_configs['CS_ROOT'],
-    $app_configs['DB_CREDENTIALS_FILE']
-);
-
-$db_creds_file = realpath($db_creds_file_str);
-if (!$db_creds_file) {
-    throw new Exception("Could not find database credentials file: $db_creds_file_str");
-}
+$appConfigs = parse_ini_file($_PATH->absPath("/conf/labsys_portal.conf"));
 
 // Setup global defines
-$db_credentials = parse_ini_file($db_creds_file);
-define("DB_USER", $db_credentials['CS_DB_RO_USER']);
-define("DB_PASS", $db_credentials['CS_DB_RO_PASSWORD']);
-define("DB_INSTANCE", $db_credentials['CS_DB_INSTANCE']);
-define("COOKIE_DOMAIN", $app_configs['COOKIE_DOMAIN']);
+setupGlobalDefnitions($appConfigs);
+
 
 // ============================================================
 
-$gLogFile = "/home/cloe_screen/log/labsys_portal.log";
 function logMessage($message, $logLevel = LOG_INFO)
 {
-    global $gLogFile;
+    $logRealPath = realpath(LOG_FILE);
+    if (!$logRealPath) {
+        $file = fopen($logRealPath, 'w');
+        fclose($file);
+    }
 
     $level = "UNKNOWN";
     if ($logLevel === LOG_INFO) {
@@ -45,7 +64,8 @@ function logMessage($message, $logLevel = LOG_INFO)
 
     $ts = date('Y-m-d H:i:s');
     $lm = sprintf("%s : %s - %s%s", $level, $ts, $message, PHP_EOL);
-    error_log($lm, 3, $gLogFile);
+    // 3 for appending to log file.
+    error_log($lm, 3, $logRealPath);
 }
 
 // ============================================================

@@ -45,9 +45,6 @@ class Path
     // Build the full absolute path from a relative path.
     public function resetPasswordForward($formHelper)
     {
-
-
-
         return sprintf('%s?reset=&%s', $this->currentUrl(true), http_build_query($_REQUEST));
     }
 
