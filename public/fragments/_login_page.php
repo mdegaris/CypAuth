@@ -24,27 +24,27 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
     $feedbackErr = $loginUser->feedbackError();
     $feedbackHelp = $loginUser->feedbackHelp();
 
+    // If password reset has been flagged,
+    // user will redirect to the "set new password".
+    if ($loginUser->user->resetPassword) {
+        // Build URL that triggers the "set new password" page render.
+        $url = sprintf(
+            '%s?%s',
+            $_PATH->currentUrl(true),
+            http_build_query(
+                array(
+                    FormHelper::RESET_FLAG => true,
+                    FormHelper::SUBMIT_USERNAME_RESET => true,
+                    FormHelper::USERNAME_RESET => $loginUser->user->username
+                )
+            )
+        );
+        header("Location: $url");
+        exit();
+    }
+
     // If no validation feedback, then proceed with authentication.
     if (!$feedbackErr) {
-
-        // If password reset has been flagged,
-        // user will redirect to the "set new password".
-        if ($loginUser->user->resetPassword) {
-            // Build URL that triggers the "set new password" page render.
-            $url = sprintf(
-                '%s?%s',
-                $_PATH->currentUrl(true),
-                http_build_query(
-                    array(
-                        FormHelper::RESET_FLAG => true,
-                        FormHelper::SUBMIT_USERNAME_RESET => true,
-                        FormHelper::USERNAME_RESET => $loginUser->user->username
-                    )
-                )
-            );
-            header("Location: $url");
-            exit();
-        }
 
         if ($loginUser->authenticate()) {
             Cookie::GetInstance()->saveAuthCookie($loginUser->user->username);

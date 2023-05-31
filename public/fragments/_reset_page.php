@@ -12,7 +12,7 @@ $includeFrag = Fragments::GetInstance()->usernameForm;
 // ============================================================
 
 if (FormHelper::isParamPresent(FormHelper::SUBMIT_USERNAME_RESET)) {
-    $username = FormHelper::getPostParam(FormHelper::USERNAME_RESET);
+    $username = FormHelper::getRequestParam(FormHelper::USERNAME_RESET);
     $userObj = User::createFromDatabase($username);
     $feedbackErr = $userObj->feedbackError();
     $feedbackHelp = $userObj->feedbackHelp();
@@ -26,7 +26,7 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_USERNAME_RESET)) {
 // ============================================================
 
 if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
-    $username = FormHelper::getPostParam(FormHelper::USERNAME_RESET);
+    $username = FormHelper::getRequestParam(FormHelper::USERNAME_RESET);
     $newPwd = FormHelper::getPostParam(FormHelper::NEW_PASSWORD_RESET);
     $confirmPwd = FormHelper::getPostParam(FormHelper::CONFIRM_PASSWORD_RESET);
 
@@ -38,8 +38,11 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_PASSWORD_RESET)) {
     if (!$feedbackErr) {
         $passwordObj->setNewPasswordInDB();
         Cookie::GetInstance()->saveAuthCookie($userObj->username);
+
         $referrer_url = Cookie::GetInstance()->readOnceHttpRefCookie();
-        header("Location: $referrer_url");
+        $return_url = empty($referrer_url) ? $_PATH->rootUrl() : $referrer_url;
+
+        header("Location: $return_url");
         exit();
     } else {
         $includeFrag = Fragments::GetInstance()->newPasswordForm;

@@ -29,5 +29,5 @@ require_once($_PATH->absPath("/lib/forms_helper.php"));
            class="invisbible"
            type="text"
            name="<?= FormHelper::USERNAME_RESET ?>"
-           value=<?= FormHelper::getPostParam(FormHelper::USERNAME_RESET) ?> />
+           value=<?= FormHelper::getRequestParam(FormHelper::USERNAME_RESET) ?> />
 </form>

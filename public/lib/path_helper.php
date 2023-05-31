@@ -51,26 +51,26 @@ class Path
     // ============================================================
 
     // Get the current URL path
-    public function currentUrl($remvoeQuery = false, $removeScript = false)
+    public function currentUrl($removeQuery = false, $removeScript = false)
     {
         $url = (sprintf(
-                "%s://%s%s",
-                empty($_SERVER['HTTPS']) ? 'http' : 'https',
-                $_SERVER['HTTP_HOST'],
-                $_SERVER['REQUEST_URI']
-            )
+            "%s://%s%s",
+            empty($_SERVER['HTTPS']) ? 'http' : 'https',
+            $_SERVER['HTTP_HOST'],
+            $_SERVER['REQUEST_URI']
+        )
         );
 
-        if ($remvoeQuery or $removeScript) {
+        if ($removeQuery or $removeScript) {
 
             $parsedUrl = parse_url($url);
 
-            if ($remvoeQuery) {
+            if ($removeScript) {
                 $baseFile = basename($_SERVER['SCRIPT_NAME']);
                 $url = str_replace('/' . $baseFile, '', $url);
             }
 
-            if ($removeScript) {
+            if ($removeQuery and !empty($parsedUrl['query'])) {
                 $url = str_replace('?' . $parsedUrl['query'], '', $url);
             }
         }

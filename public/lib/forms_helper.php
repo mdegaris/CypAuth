@@ -15,7 +15,7 @@ class FormHelper
     const USERNAME_RESET = "username-reset";
     const NEW_PASSWORD_RESET = "new-password";
     const CONFIRM_PASSWORD_RESET = "confirm-password";
-    const SUBMIT_USERNAME_RESET = 'username=submit';
+    const SUBMIT_USERNAME_RESET = 'username-submit';
     const SUBMIT_PASSWORD_RESET = 'reset-submit';
 
     // ============================================================
