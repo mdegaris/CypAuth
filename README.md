@@ -1,5 +1,5 @@
 # Labsys Portal
 
-## Protal Page
+## Application Portal Page
 
-## Authentication with Cookie creation
+## User Authentication with Cookie creation for persistent SSO.
