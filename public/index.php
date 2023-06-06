@@ -42,7 +42,7 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0" />
     <link rel="icon"
-          href="/images/logo-brand.svg"
+          href="images/logo-brand.svg"
           type="image/svg+xml">
     <link rel="stylesheet"
           href="css/portal.css" />
@@ -51,7 +51,15 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
 <body>
     <div class="outer-container">
         <header class="header">
+            <div class="logo-container">
+                <img class="logo-image"
+                     src="images/logo-brand.svg" />
+            </div>
             <div class="title-container">Labsys Portal</div>
+            <div class="profile-container">
+                <div class="username">mdegaris</div>
+                <div class="date">06-JUN-2023</div>
+            </div>
         </header>
         <div class="separator"></div>
         <main class="main-content">

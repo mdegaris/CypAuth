@@ -23,7 +23,7 @@ class Cookie
 
   // ============================================================
 
-  public static function GetCookieValue($name)
+  public static function GetCookie($name)
   {
     return !empty($_COOKIE[$name]) ? $_COOKIE[$name] : null;
   }
@@ -32,13 +32,14 @@ class Cookie
 
   public static function HasAuthCookie()
   {
-    return self::GetCookieValue(self::$AUTH_COOKIE_NAME) !== null;
+    return self::GetCookie(self::$AUTH_COOKIE_NAME) !== null;
   }
 
   // ============================================================
 
   private $cookieLife = null;
   private $timeNow = null;
+  private $cookieValue = null;
 
   // ============================================================
 
@@ -55,16 +56,28 @@ class Cookie
   private function buildHash($username, $location)
   {
     if ($username and $location) {
-      return md5(sprintf("%s|%s|%s|%s", $username, $location, $this->timeNow, self::$HASH_SALT));
+      return md5(sprintf(
+        "%s|%s|%s|%s",
+        $username,
+        $location,
+        $this->timeNow,
+        self::$HASH_SALT
+      ));
     }
   }
 
   // ============================================================
 
-  private function cookieValue($username, $location, $loginHash)
+  private function buildCookieValue($username, $location, $loginHash)
   {
     if ($username and $location and $loginHash) {
-      return sprintf("%s|%s|%s|%s", $username, $location, $this->timeNow, $loginHash);
+      return sprintf(
+        "%s|%s|%s|%s",
+        $username,
+        $location,
+        time(),
+        $loginHash
+      );
     }
   }
 
@@ -72,7 +85,7 @@ class Cookie
 
   private function getAndDestroyCookie($cookieName)
   {
-    $cookieValue = self::GetCookieValue($cookieName);
+    $cookieValue = self::GetCookie($cookieName);
     $this->destroyCookie($cookieName);
     return $cookieValue;
   }
@@ -83,13 +96,19 @@ class Cookie
   {
     $location = $loc == null ? self::$DEFAULT_LOCATION : $loc;
 
-    $cookieValue = Cookie::cookieValue(
+    $cookieValue = self::buildCookieValue(
       $username,
       $location,
       $this->buildHash($username, $location)
     );
 
-    setcookie(self::$AUTH_COOKIE_NAME, $cookieValue, $this->cookieLife, '/', self::$DOMAIN);
+    setcookie(
+      self::$AUTH_COOKIE_NAME,
+      $cookieValue,
+      $this->cookieLife,
+      '/',
+      self::$DOMAIN
+    );
   }
 
   // ============================================================
@@ -104,6 +123,13 @@ class Cookie
   public function readOnceHttpRefCookie()
   {
     return $this->getAndDestroyCookie(self::$HTTP_REF_COOKIE_NAME);
+  }
+
+  // ============================================================
+
+  public function getUsername()
+  {
+    // $cv = $this->
   }
 
   // ============================================================
