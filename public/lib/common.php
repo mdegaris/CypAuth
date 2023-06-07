@@ -34,6 +34,9 @@ function setupGlobalDefnitions($config)
 
 // ============================================================
 
+// Set default timezone
+date_default_timezone_set('Europe/London');
+
 // Setup Globals
 $doc_root = substr(__DIR__, 0, stripos(__DIR__, "/lib"));
 $_PATH = Path::GetInstance($doc_root);

@@ -62,7 +62,7 @@ a:hover {
 
 .header {
   display: grid;
-  grid-template-columns: 40rem auto 40rem;
+  grid-template-columns: 26rem auto 26rem;
   grid-template-rows: 8rem;
 }
 

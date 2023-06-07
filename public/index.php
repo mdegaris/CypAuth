@@ -45,7 +45,7 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
               href="images/logo-brand.svg"
               type="image/svg+xml">
         <link rel="stylesheet"
-              href="css/portal.css" />
+              href="css/portal.css?1" />
     </head>
 
     <body>
@@ -200,7 +200,7 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
                                     <a href="http://co-mac-sapd02.cyprotex.com:8084/applive/">Auto
                                         Tox Task Wizard</a>
                                 </li>
-                                <li class="inactive">
+                                <li>
                                     <a href="http://applive.cyprotex.com:8008/hcs">HCS Fitting</a>
                                 </li>
                                 <li>
