@@ -74,6 +74,7 @@ a:hover {
   color: var(--clr-primary-3);
   justify-self: center;
   align-self: center;
+  letter-spacing: 4px;
 }
 
 .profile-container {
@@ -81,7 +82,7 @@ a:hover {
   font-size: 1.65rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  padding-right: 3rem;
+  padding-right: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -98,7 +99,7 @@ a:hover {
 }
 
 .logo-container {
-  padding: 1.5rem;
+  padding: 1.5rem 3rem;
 }
 
 .logo-image {

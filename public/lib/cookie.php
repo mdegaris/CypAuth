@@ -83,6 +83,13 @@ class Cookie
 
   // ============================================================
 
+  private function getAuthCookieValue()
+  {
+    return self::GetCookie(self::$AUTH_COOKIE_NAME);
+  }
+
+  // ============================================================
+
   private function getAndDestroyCookie($cookieName)
   {
     $cookieValue = self::GetCookie($cookieName);
@@ -129,7 +136,11 @@ class Cookie
 
   public function getUsername()
   {
-    // $cv = $this->
+    $authValue = $this->getAuthCookieValue();
+    if (!empty($authValue)) {
+      $cvSplit = explode('|', html_entity_decode($authValue), 2);
+      return $cvSplit[0];
+    }
   }
 
   // ============================================================
