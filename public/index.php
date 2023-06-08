@@ -8,20 +8,23 @@ require_once($_PATH->absPath("/lib/cookie.php"));
 
 // ============================================================
 
+// Redirect to password resetting if 'setup' request parameter is set 
+// and Auth cookie is not set.
 $forceSetup = FormHelper::isParamPresent("setup");
-
 if ($forceSetup and !Cookie::HasAuthCookie()) {
     Cookie::GetInstance()->saveHttpRefCookie($_PATH->currentUrl(true));
     header("Location: auth.php?reset");
     exit();
 }
 
-
+// If Auth cookie is not set, redirect to auth login.
 if (!Cookie::HasAuthCookie()) {
     header("Location: auth.php");
     exit();
 }
 
+// If we have an auth cookie and trying to force a setup, 
+// strip query string and script.php, and redirect to home portal page.
 if (Cookie::HasAuthCookie() and $forceSetup) {
     header("Location: " . $_PATH->currentUrl(true, true));
     exit();

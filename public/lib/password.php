@@ -17,6 +17,7 @@ SQL;
 
     private static $HASHING_ALGORITHM = "sha512";
     private static $STRENGTH_REGEX = '/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/';
+
     private static $HTML_ERROR_NOT_POPULATE = "Populate both password fields";
     private static $HTML_ERROR_NO_MATCH = "Password fields don't match";
     private static $HTML_ERROR_WEAK = "Password is too weak";
@@ -70,7 +71,9 @@ HTML;
     }
 
     // ============================================================
-
+    
+    // Return a HTML error message depending on validation rules.
+    // NULL if no error message.
     public function feedbackError()
     {
         if (!$this->isPopulatedCheck()) {
@@ -88,6 +91,8 @@ HTML;
 
     // ============================================================
 
+    // Update the user's CY_USER database record with the newly submitted 
+    // encrpyted password.
     public function setNewPasswordInDB()
     {
         $binds = array(

@@ -5,8 +5,7 @@ require_once("path_helper.php");
 // ============================================================
 
 function setupGlobalDefnitions($config)
-{
-
+{    
     $dbCredsFileStr = sprintf(
         "%s%s%s",
         $config['CS_ROOT'],
@@ -14,6 +13,7 @@ function setupGlobalDefnitions($config)
         $config['DB_CREDENTIALS_FILE']
     );
 
+    // Check real path and check if exists.
     $dbCredsFile = realpath($dbCredsFileStr);
     if (!$dbCredsFile) {
         throw new Exception("Could not find database credentials file: $dbCredsFileStr");
@@ -37,7 +37,7 @@ function setupGlobalDefnitions($config)
 // Set default timezone
 date_default_timezone_set('Europe/London');
 
-// Setup Globals
+// Setup Path singleton
 $doc_root = substr(__DIR__, 0, stripos(__DIR__, "/lib"));
 $_PATH = Path::GetInstance($doc_root);
 

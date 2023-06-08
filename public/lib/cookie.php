@@ -2,7 +2,7 @@
 
 class Cookie
 {
-  // Singleton Setup
+  // Setup Singleton
   private static $instance = null;
   public static function GetInstance()
   {
@@ -23,6 +23,7 @@ class Cookie
 
   // ============================================================
 
+  // Return a cookie's value, if it exists.
   public static function GetCookie($name)
   {
     return !empty($_COOKIE[$name]) ? $_COOKIE[$name] : null;
@@ -30,6 +31,7 @@ class Cookie
 
   // ============================================================
 
+  // Check if the Auth cookie has been created.
   public static function HasAuthCookie()
   {
     return self::GetCookie(self::$AUTH_COOKIE_NAME) !== null;
@@ -39,20 +41,21 @@ class Cookie
 
   private $cookieLife = null;
   private $timeNow = null;
-  private $cookieValue = null;
 
   // ============================================================
 
+  // Destroy a given coookie.
   private function destroyCookie($cookieName)
   {
     if (isset($_COOKIE[$cookieName])) {
-      unset($_COOKIE[$cookieName]);
       setcookie($cookieName, '', time() - 3600);
+      unset($_COOKIE[$cookieName]);      
     }
   }
 
   // ============================================================
 
+  # Build the MD5 validation hash for the Auth cookie.
   private function buildHash($username, $location)
   {
     if ($username and $location) {
@@ -68,6 +71,7 @@ class Cookie
 
   // ============================================================
 
+  // Build the Auth cookie's value.
   private function buildCookieValue($username, $location, $loginHash)
   {
     if ($username and $location and $loginHash) {
@@ -75,7 +79,7 @@ class Cookie
         "%s|%s|%s|%s",
         $username,
         $location,
-        time(),
+        $this->timeNow,
         $loginHash
       );
     }
@@ -83,6 +87,7 @@ class Cookie
 
   // ============================================================
 
+  // Get the Auth cookie value, if it exists.
   private function getAuthCookieValue()
   {
     return self::GetCookie(self::$AUTH_COOKIE_NAME);
@@ -90,6 +95,7 @@ class Cookie
 
   // ============================================================
 
+  // Get a cookie's value and then remove/invalidate it.
   private function getAndDestroyCookie($cookieName)
   {
     $cookieValue = self::GetCookie($cookieName);
@@ -99,6 +105,7 @@ class Cookie
 
   // ============================================================
 
+  // Save/set the Auth cookie to the cookie domain.
   public function saveAuthCookie($username, $loc = null)
   {
     $location = $loc == null ? self::$DEFAULT_LOCATION : $loc;
@@ -120,6 +127,7 @@ class Cookie
 
   // ============================================================
 
+  // Save/set the HTTP referrer (return URL) cookie.
   public function saveHttpRefCookie($url)
   {
     setcookie(self::$HTTP_REF_COOKIE_NAME, $url);
@@ -127,6 +135,7 @@ class Cookie
 
   // ============================================================
 
+  // Return and destroy the HTTP referrer cookie.
   public function readOnceHttpRefCookie()
   {
     return $this->getAndDestroyCookie(self::$HTTP_REF_COOKIE_NAME);
@@ -134,6 +143,8 @@ class Cookie
 
   // ============================================================
 
+  // Get the username (accoutn uid) from the Auth cookie value, 
+  // if it exists.
   public function getUsername()
   {
     $authValue = $this->getAuthCookieValue();

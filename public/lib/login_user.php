@@ -19,6 +19,8 @@ class LoginUser
 
     // ============================================================
 
+    // Return a HTML error message depending on validation rules.
+    // NULL if no error message.
     public function feedbackError()
     {
         if ($this->user->exists) {
@@ -38,6 +40,7 @@ class LoginUser
 
     // ============================================================
 
+    // Return any HTML feedback help message.
     public function feedbackHelp()
     {
         return null;
@@ -45,6 +48,8 @@ class LoginUser
 
     // ============================================================
 
+    // Do the login authentication. 
+    // I.e. Hash the submitted password and compare with database encrypted password.
     public function authenticate()
     {
         if ($this->user->encryptedSavedPassword and $this->encryptedLoginPassword) {

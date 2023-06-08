@@ -35,6 +35,7 @@ SQL;
     </ol>
 HTML;
 
+    // ============================================================
 
     public $username;
     public $encryptedSavedPassword;
@@ -44,6 +45,10 @@ HTML;
     public $exists;
     public $isUserEmpty;
 
+    // ============================================================
+
+    // Query the CY_USER table for a given user, 
+    // and create and return a new User object.
     public static function createFromDatabase($username)
     {
         $rows = dbQuery(User::$USER_CREDS_SQL, array("username" => $username));
@@ -65,6 +70,8 @@ HTML;
 
     // ============================================================
 
+    // Return a HTML error message depending on validation rules.
+    // NULL if no error message.
     public function feedbackError()
     {
         if ($this->isUserEmpty) {
@@ -90,6 +97,7 @@ HTML;
 
     // ============================================================
 
+    // Return any HTML feedback help message.
     public function feedbackHelp()
     {
         if (!$this->isUserEmpty and !$this->exists) {

@@ -20,6 +20,7 @@ class FormHelper
 
     // ============================================================
 
+    // Generic parameter map getter.
     private static function getParam($scopeMap, $name)
     {
         return isset($scopeMap[$name]) ? $scopeMap[$name] : null;
@@ -27,21 +28,25 @@ class FormHelper
 
     // ============================================================
 
+    // Get request parameter (GET or POST).
     public static function getRequestParam($name)
     {
         return self::getParam($_REQUEST, $name);
     }
 
+    // POST only.
     public static function getPostParam($name)
     {
         return self::getParam($_POST, $name);
     }
 
+    // GET only
     public static function getGetParam($name)
     {
         return self::getParam($_GET, $name);
     }
 
+    // Check if a request parameter exists.
     public static function isParamPresent($name)
     {
         return isset($_REQUEST[$name]);
@@ -49,6 +54,7 @@ class FormHelper
 
     // ============================================================
 
+    // Simple value trimmer.
     public static function Trimmer($v)
     {
         return empty($v) ? $v : trim($v . "");

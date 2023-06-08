@@ -2,8 +2,8 @@
 
 class Fragments
 {
+    // Setup singleton.
     private static $instance = null;
-
     public static function GetInstance()
     {
         if (self::$instance == null) {
@@ -25,6 +25,7 @@ class Fragments
     {
         global $_PATH;
 
+        // All possible PHP page fragments.
         $this->usernameForm = $_PATH->absPath("/fragments/_username_form.php");
         $this->newPasswordForm = $_PATH->absPath("/fragments/_new_password_form.php");
         $this->loginPage = $_PATH->absPath("/fragments/_login_page.php");
