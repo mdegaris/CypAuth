@@ -10,10 +10,10 @@ require_once($_PATH->absPath("/lib/cookie.php"));
 
 // Redirect to password resetting if 'setup' request parameter is set 
 // and Auth cookie is not set.
-$forceSetup = FormHelper::isParamPresent("setup");
+$forceSetup = FormHelper::isParamPresent(FormHelper::SETUP_FLAG);
 if ($forceSetup and !Cookie::HasAuthCookie()) {
     Cookie::GetInstance()->saveHttpRefCookie($_PATH->currentUrl(true));
-    header("Location: auth.php?reset");
+    header(sprintf("Location: auth.php?%s", FormHelper::RESET_FLAG));
     exit();
 }
 
@@ -37,7 +37,6 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
 
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible"
@@ -70,7 +69,6 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
                     <div class="card">
                         <div class="card-title">Order Systems</div>
                         <div class="card-content">
-
                             <ul>
                                 <li>
                                     <a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=103">Study
@@ -111,7 +109,6 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
                                         Definitions</a>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                     <div class="card">

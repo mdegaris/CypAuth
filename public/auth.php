@@ -14,7 +14,7 @@ require_once($_PATH->absPath("/lib/cookie.php"));
 // Checks if the reset flag in the URL is set.
 function doPasswordReset()
 {
-    return FormHelper::getGetParam("reset") !== null;
+    return FormHelper::getGetParam(FormHelper::RESET_FLAG) !== null;
 }
 
 // If we're (re)setting the password, then start the reset password flow.

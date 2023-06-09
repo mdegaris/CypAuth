@@ -39,13 +39,13 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
                 )
             )
         );
-        header("Location: $url");
+        header(sprintf("Location: %s", $url));
         exit();
     }
 
     // If no validation feedback, then proceed with authentication.
     if (!$feedbackErr) {
-
+        // Test authentication
         if ($loginUser->authenticate()) {
             Cookie::GetInstance()->saveAuthCookie($loginUser->user->username);
             $urlReferrer = Cookie::GetInstance()->readOnceHttpRefCookie();
