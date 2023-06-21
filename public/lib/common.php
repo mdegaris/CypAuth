@@ -5,31 +5,20 @@ require_once("path_helper.php");
 // ============================================================
 
 function setupGlobalDefnitions($config)
-{    
-    $dbCredsFileStr = sprintf(
-        "%s%s%s",
-        $config['CS_ROOT'],
-        DIRECTORY_SEPARATOR,
-        $config['DB_CREDENTIALS_FILE']
-    );
-
+{
     // Check real path and check if exists.
-    $dbCredsFile = realpath($dbCredsFileStr);
+    $dbCredsFile = realpath($config['DB_CREDENTIALS_FILE']);
     if (!$dbCredsFile) {
-        throw new Exception("Could not find database credentials file: $dbCredsFileStr");
+        throw new Exception(sprintf("Could not find database credentials file: %s",
+                                    $config['DB_CREDENTIALS_FILE']));
     }
 
     $dbCredentials = parse_ini_file($dbCredsFile);
-    define("CS_ROOT", $config['CS_ROOT']);
     define("DB_USER", $dbCredentials['CS_DB_RO_USER']);
     define("DB_PASS", $dbCredentials['CS_DB_RO_PASSWORD']);
     define("DB_INSTANCE", $dbCredentials['CS_DB_INSTANCE']);
     define("COOKIE_DOMAIN", $config['COOKIE_DOMAIN']);
-    define('LOG_FILE', sprintf(
-        $config['CS_ROOT'],
-        DIRECTORY_SEPARATOR,
-        $config['LOG_FILE']
-    ));
+    define('LOG_FILE', $config['LOG_FILE']);
 }
 
 // ============================================================
@@ -50,13 +39,16 @@ setupGlobalDefnitions($appConfigs);
 
 // ============================================================
 
-function logMessage($message, $logLevel = LOG_INFO)
-{
-    $logRealPath = realpath(LOG_FILE);
-    if (!$logRealPath) {
-        $file = fopen($logRealPath, 'w');
-        fclose($file);
-    }
+function createFile($fn) {
+    $fh = fopen($fn, 'w') or die (sprintf("Error creating log file: %s", LOG_FILE));
+    fclose($fh);
+}
+
+// ============================================================
+
+function logMessage($message, $logLevel = LOG_INFO) {
+
+    global $_SERVER;
 
     $level = "UNKNOWN";
     if ($logLevel === LOG_INFO) {
@@ -66,9 +58,14 @@ function logMessage($message, $logLevel = LOG_INFO)
     }
 
     $ts = date('Y-m-d H:i:s');
-    $lm = sprintf("%s : %s - %s%s", $level, $ts, $message, PHP_EOL);
+    $lm = sprintf("%s : %s : %s - %s%s", $_SERVER['REMOTE_ADDR'], $level, $ts, $message, PHP_EOL);
+
+    if (!file_exists(LOG_FILE)) {
+        createFile(LOG_FILE);
+    }
+
     // 3 for appending to log file.
-    error_log($lm, 3, $logRealPath);
+    error_log($lm, 3, LOG_FILE);
 }
 
 // ============================================================

@@ -48,7 +48,7 @@ class LoginUser
 
     // ============================================================
 
-    // Do the login authentication. 
+    // Do the login authentication.
     // I.e. Hash the submitted password and compare with database encrypted password.
     public function authenticate()
     {

@@ -25,9 +25,9 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
     $feedbackHelp = $loginUser->feedbackHelp();
 
     // If password reset has been flagged,
-    // user will redirect to the "set new password".
+    // user will redirect to the "reset password" page.
     if ($loginUser->user->resetPassword) {
-        // Build URL that triggers the "set new password" page render.
+        // Build URL that triggers the "reset password" page redirect.
         $url = sprintf(
             '%s?%s',
             $_PATH->currentUrl(true),
@@ -45,8 +45,14 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
 
     // If no validation feedback, then proceed with authentication.
     if (!$feedbackErr) {
-        // Test authentication
+
+        logMessage(sprintf("Attempting to authenticate %s", $loginUser->user->username));
+
+        // Do authentication.
         if ($loginUser->authenticate()) {
+
+            logMessage(sprintf("Authentication successful for %s", $loginUser->user->username));
+
             Cookie::GetInstance()->saveAuthCookie($loginUser->user->username);
             $urlReferrer = Cookie::GetInstance()->readOnceHttpRefCookie();
             if ($urlReferrer) {
@@ -56,6 +62,9 @@ if (FormHelper::isParamPresent(FormHelper::SUBMIT_LOGIN)) {
             }
             exit();
         } else {
+
+            logMessage(sprintf("Authentication failure for %s", $loginUser->user->username));
+
             $feedbackErr = LoginUser::$HTML_ERROR_FAILED_AUTH;
         }
     }

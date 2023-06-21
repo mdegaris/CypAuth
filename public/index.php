@@ -8,10 +8,13 @@ require_once($_PATH->absPath("/lib/cookie.php"));
 
 // ============================================================
 
-// Redirect to password resetting if 'setup' request parameter is set 
+// Redirect to password resetting if 'setup' request parameter is set
 // and Auth cookie is not set.
 $forceSetup = FormHelper::isParamPresent(FormHelper::SETUP_FLAG);
 if ($forceSetup and !Cookie::HasAuthCookie()) {
+
+    logMessage("No cookie and we're forcing a password setup.");
+
     Cookie::GetInstance()->saveHttpRefCookie($_PATH->currentUrl(true));
     header(sprintf("Location: auth.php?%s", FormHelper::RESET_FLAG));
     exit();
@@ -19,18 +22,26 @@ if ($forceSetup and !Cookie::HasAuthCookie()) {
 
 // If Auth cookie is not set, redirect to auth login.
 if (!Cookie::HasAuthCookie()) {
+
+    logMessage("No cookie so redirect to login.");
+
     header("Location: auth.php");
     exit();
 }
 
-// If we have an auth cookie and trying to force a setup, 
+// If we have an auth cookie and trying to force a setup,
 // strip query string and script.php, and redirect to home portal page.
 if (Cookie::HasAuthCookie() and $forceSetup) {
+
+    logMessage(sprintf("Cookie found for \"%s\", so clean-up URL and redirect to main index page.", Cookie::GetInstance()->getUsername()));
+
     header("Location: " . $_PATH->currentUrl(true, true));
     exit();
 }
 
 // ============================================================
+
+logMessage(sprintf("Cookie found for \"%s\". Display main index page.", Cookie::GetInstance()->getUsername()));
 
 ?>
 
@@ -48,6 +59,8 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
               type="image/svg+xml">
         <link rel="stylesheet"
               href="css/portal.css?1" />
+
+        <title>Labsys Portal</title>
     </head>
 
     <body>
@@ -246,8 +259,8 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
                         <div class="card-title">Upload Utilities</div>
                         <div class="card-content">
                             <ul>
-                                <li class="inactive">
-                                    <a href="">Sample list upload to all Xevos</a>
+                                <li>
+                                    <a href="http://applive.cyprotex.com/cgi-bin/upload_to_ms.pl">Sample list upload to all Xevos</a>
                                 </li>
                                 <li class="inactive">
                                     <a href="http://applive/cgi-bin/upload_to_qtrap.pl">Sample list
@@ -277,6 +290,9 @@ if (Cookie::HasAuthCookie() and $forceSetup) {
                                 <li>
                                     <a href="http://atropos.cyprotex.com:8080/ords/dblive/f?p=102">Change
                                         Book</a>
+                                </li>
+                                <li>
+                                    <a href="http://applive.cyprotex.com:8008/reports">Reports</a>
                                 </li>
                             </ul>
                         </div>
