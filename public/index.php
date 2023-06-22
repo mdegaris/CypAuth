@@ -138,7 +138,7 @@ logMessage(sprintf("Cookie found for \"%s\". Display main index page.", Cookie::
                                        href="http://atropos.cyprotex.com:8080/ords/dblive/labsys_public/r/cyp1367-study-management">CYP1367
                                         Study Management</a>
                                 </li>
-                                <li class="inactive">
+                                <li>
                                     <a
                                        href="http://atropos.cyprotex.com:8080/ords/dblive/labsys_public/r/cyp1676-next-status">CYP1676
                                         NEXT Status</a>
