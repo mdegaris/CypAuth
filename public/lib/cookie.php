@@ -44,17 +44,6 @@ class Cookie
 
   // ============================================================
 
-  // Destroy a given coookie.
-  private function destroyCookie($cookieName)
-  {
-    if (isset($_COOKIE[$cookieName])) {
-      setcookie($cookieName, '', time() - 3600);
-      unset($_COOKIE[$cookieName]);      
-    }
-  }
-
-  // ============================================================
-
   # Build the MD5 validation hash for the Auth cookie.
   private function buildHash($username, $location)
   {
@@ -105,6 +94,17 @@ class Cookie
 
   // ============================================================
 
+  // Destroy a given coookie.
+  public function destroyCookie($cookieName)
+  {
+    if (isset($_COOKIE[$cookieName])) {
+      setcookie($cookieName, '', time() - 3600);
+      unset($_COOKIE[$cookieName]);
+    }
+  }
+
+  // ============================================================
+
   // Save/set the Auth cookie to the cookie domain.
   public function saveAuthCookie($username, $loc = null)
   {
@@ -143,7 +143,7 @@ class Cookie
 
   // ============================================================
 
-  // Get the username (accoutn uid) from the Auth cookie value, 
+  // Get the username (accoutn uid) from the Auth cookie value,
   // if it exists.
   public function getUsername()
   {
