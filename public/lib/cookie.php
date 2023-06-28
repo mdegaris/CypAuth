@@ -94,11 +94,25 @@ class Cookie
 
   // ============================================================
 
+  // Get a cookie's value and then remove/invalidate it.
+  private function setCookie($ckName, $ckValue, $expiry = 0)
+  {
+    setcookie(
+      $ckName,
+      $ckValue,
+      $expiry,
+      '/',
+      self::$DOMAIN
+    );
+  }
+
+  // ============================================================
+
   // Destroy a given coookie.
   public function destroyCookie($cookieName)
   {
     if (isset($_COOKIE[$cookieName])) {
-      setcookie($cookieName, '', time() - 3600);
+      $this->setCookie($cookieName, '', time() - 3600);
       unset($_COOKIE[$cookieName]);
     }
   }
@@ -116,12 +130,10 @@ class Cookie
       $this->buildHash($username, $location)
     );
 
-    setcookie(
+    $this->setcookie(
       self::$AUTH_COOKIE_NAME,
       $cookieValue,
-      $this->cookieLife,
-      '/',
-      self::$DOMAIN
+      $this->cookieLife
     );
   }
 
@@ -130,7 +142,11 @@ class Cookie
   // Save/set the HTTP referrer (return URL) cookie.
   public function saveHttpRefCookie($url)
   {
-    setcookie(self::$HTTP_REF_COOKIE_NAME, $url);
+    $this->setcookie(
+      self::$HTTP_REF_COOKIE_NAME,
+      $url,
+      $$this->cookieLife
+    );
   }
 
   // ============================================================
